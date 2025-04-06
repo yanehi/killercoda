@@ -1,0 +1,21 @@
+{
+    "title": "Opentofu CLI",
+    "description": "Learn the basic commands and flags to interact with your infrastructure.",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Setup OpenTofu CLI",
+          "text": "step1.md"
+        }
+      ]
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    },
+    "interface": {
+      "layout": "ide"
+    }
+  }
