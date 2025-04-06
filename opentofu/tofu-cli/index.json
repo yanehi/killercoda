@@ -3,15 +3,22 @@
     "description": "Learn the basic commands and flags to interact with your infrastructure.",
     "details": {
       "intro": {
-        "text": "intro.md"
+        "text": "intro.md",
+        "background": "startup.sh",
+        "foreground": "finish.sh"
       },
       "finish": {
         "text": "finish.md"
       },
       "steps": [
         {
-          "title": "Setup OpenTofu CLI",
-          "text": "step1.md"
+          "title": "Overview commands",
+          "text": "task-1/text.md"
+        },
+        {
+          "title": "Install OpenTofu CLI",
+          "text": "task-2/text.md",
+          "verify": "task-2/verify.sh"
         }
       ]
     },
