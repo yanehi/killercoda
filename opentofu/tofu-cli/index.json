@@ -4,8 +4,8 @@
     "details": {
       "intro": {
         "text": "intro.md",
-        "background": "startup.sh",
-        "foreground": "finish.sh"
+        "background": "finish.sh",
+        "foreground": "startup.sh"
       },
       "finish": {
         "text": "finish.md"
