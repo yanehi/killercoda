@@ -5,6 +5,9 @@
       "intro": {
         "text": "intro.md"
       },
+      "finish": {
+        "text": "finish.md"
+      },
       "steps": [
         {
           "title": "Setup OpenTofu CLI",
