@@ -6,14 +6,17 @@ if [ ! -f main.tf ]; then
   echo "main.tf not found"; exit 1;
 fi
 
-# Check provider block
-if ! grep -q 'source\s*=\s*"kreuzwerker/docker"' main.tf; then
-  echo "kreuzwerker/docker provider not configured"; exit 1;
+# Check resource blocks
+if ! grep -q 'resource\s\+"docker_image"\s\+"nginx"' main.tf; then
+  echo "docker_image.nginx resource not found"; exit 1;
+fi
+if ! grep -q 'resource\s\+"docker_container"\s\+"nginx"' main.tf; then
+  echo "docker_container.nginx resource not found"; exit 1;
 fi
 
-# Check tofu init
-if [ ! -d .terraform ]; then
-  echo ".terraform directory not found. Run 'tofu init'"; exit 1;
+# Check running container
+if ! docker ps --format '{{.Names}}' | grep -q 'tutorial-nginx'; then
+  echo "Container 'tutorial-nginx' is not running"; exit 1;
 fi
 
-echo "Task 2 verification passed!" 
+echo "Task 3 verification passed!" 
