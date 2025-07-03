@@ -1,14 +1,29 @@
 #!/bin/bash
 set -e
 
-# Check tofu state list
-if ! tofu state list &> /dev/null; then
-  echo "tofu state list failed"; exit 1;
+# Check tofu init
+if [ ! -d .terraform ]; then
+  echo ".terraform directory not found. Run 'tofu init'"; exit 1;
 fi
 
-# Check tofu state show
-if ! tofu state show docker_container.nginx &> /dev/null; then
-  echo "tofu state show for docker_container.nginx failed"; exit 1;
+# Check tofu plan
+if ! tofu plan &> /dev/null; then
+  echo "tofu plan failed"; exit 1;
+fi
+
+# Check tofu apply (simulate with plan/apply dry-run)
+if ! tofu apply -auto-approve &> /dev/null; then
+  echo "tofu apply failed"; exit 1;
+fi
+
+# Check state file exists
+if [ ! -f tofu.tfstate ] && [ ! -f terraform.tfstate ]; then
+  echo "State file not found after apply"; exit 1;
+fi
+
+# Check tofu destroy
+if ! tofu destroy -auto-approve &> /dev/null; then
+  echo "tofu destroy failed"; exit 1;
 fi
 
 # Check container is destroyed
