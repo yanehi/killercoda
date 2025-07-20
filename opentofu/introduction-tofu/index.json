@@ -2,13 +2,16 @@
   "title": "Introduction to Terraform/OpenTofu with Docker",
   "description": "Learn the basics of Infrastructure as Code using Terraform/OpenTofu and the kreuzwerker/docker provider.",
   "difficulty": "beginner",
+  "intro": "intro.md",
+  "finish": "finish.md",
   "details": {
     "steps": [
-      { "title": "Terraform Syntax and Basics", "text": "task-1/text.md" },
-      { "title": "Providers and Provider Syntax", "text": "task-2/text.md" },
-      { "title": "Managing Docker Resources", "text": "task-3/text.md" },
-      { "title": "State Manipulation and Useful Commands", "text": "task-4/text.md" },
-      { "title": "Refactoring and Best Practices", "text": "task-5/text.md" }
+      { "title": "Providers and Provider Syntax", "text": "task-1/text.md" },
+      { "title": "Managing Resources", "text": "task-2/text.md" },
+      { "title": "Variables, Locals, and Outputs", "text": "task-3/text.md" },
+      { "title": "Understanding the Terraform/OpenTofu Lifecycle", "text": "task-4/text.md" },
+      { "title": "State Manipulation and Useful Commands", "text": "task-5/text.md" },
+      { "title": "Refactoring Best Practices", "text": "task-6/text.md" }
     ]
   }
 } 
