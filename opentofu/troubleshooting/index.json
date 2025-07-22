@@ -1,0 +1,61 @@
+{
+    "title": "Troubleshooting",
+    "description": "Find and solve common issues in Terraform/OpenTofu.",
+    "details": {
+      "intro": {
+        "text": "intro.md",
+        "foreground": "startup.sh"
+      },
+      "finish": {
+        "text": "finish.md"
+      },
+      "steps": [
+        {
+          "title": "Variables and locals",
+          "text": "task-1/text.md",
+          "background": "task-1/background.sh"
+        },
+        {
+          "title": "Variable interpolation",
+          "text": "task-2/text.md",
+          "background": "task-2/background.sh"
+        },
+        {
+          "title": "Syntax errors",
+          "text": "task-3/text.md",
+          "background": "task-3/background.sh"
+        },
+        {
+          "title": "Resource names",
+          "text": "task-4/text.md",
+          "background": "task-4/background.sh"
+        },
+        {
+          "title": "Resource attributes",
+          "text": "task-5/text.md",
+          "background": "task-5/background.sh"
+        },
+        {
+          "title": "Race conditions",
+          "text": "task-6/text.md",
+          "background": "task-6/background.sh"
+        },
+        {
+          "title": "Cycle dependencies",
+          "text": "task-7/text.md",
+          "background": "task-7/background.sh"
+        },
+        {
+          "title": "Various",
+          "text": "task-8/text.md",
+          "background": "task-8/background.sh"
+        }
+      ]
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    },
+    "interface": {
+      "layout": "ide"
+    }
+  }
