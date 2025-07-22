@@ -13,5 +13,11 @@
       { "title": "State Manipulation and Useful Commands", "text": "task-5/text.md" },
       { "title": "Refactoring Best Practices", "text": "task-6/text.md" }
     ]
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  },
+  "interface": {
+    "layout": "ide"
   }
 } 
