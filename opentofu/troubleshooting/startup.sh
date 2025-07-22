@@ -1,4 +1,12 @@
 #!/bin/bash
+
+# Create folder with exercises
+mkdir ~/troubleshooting
+for i in {1..8}; do
+  echo "Create folder task-$i"
+  mkdir ~/troubleshooting/task-$i
+done
+
 # Update packages
 apt-get update -y
 
@@ -19,19 +27,5 @@ chmod +x install-opentofu.sh
 # Remove the installer:
 rm -f install-opentofu.sh
 
-apt-get install -y docker.io
-
-# Start Docker service if not running
-if ! pgrep dockerd &> /dev/null; then
-  systemctl start docker
-fi
 # Verify installations
 tofu version
-docker --version
-
-# Create folder with exercises
-mkdir ~/troubleshooting
-for i in {1..8}; do
-  echo "Create folder task-$i"
-  mkdir ~/troubleshooting/task-$i
-done
