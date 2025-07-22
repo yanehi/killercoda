@@ -1,7 +1,7 @@
 #!/bin/bash
 # Create provider.tf file
 
-cat <<EOF > ~/troubleshooting/task-2/provider.tf
+cat <<'EOF' > ~/troubleshooting/task-2/provider.tf
 terraform {
   required_providers {
     docker = {

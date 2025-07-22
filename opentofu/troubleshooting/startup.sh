@@ -13,7 +13,11 @@ if ! pgrep dockerd &> /dev/null; then
 fi
 # Verify installations
 tofu version
-docker --version 
+docker --version
 
 # Create folder with exercises
 mkdir ~/troubleshooting
+for i in {1..8}; do
+  echo "$i"
+  mkdir ~/troubleshooting/task-$i
+done

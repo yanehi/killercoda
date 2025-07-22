@@ -1,7 +1,7 @@
 #!/bin/bash
 # Create provider.tf file
 
-cat <<EOF > ~/troubleshooting/task-1/provider.tf
+cat <<'EOF' > ~/troubleshooting/task-1/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -16,7 +16,7 @@ provider "docker" {
 }
 EOF
 
-cat <<EOF > ~/troubleshooting/task-1/variables.tf
+cat <<'EOF' > ~/troubleshooting/task-1/variables.tf
 variable "environment" {
   type        = bool
   description = "Environment to deploy the container (dev, test, prod)"
@@ -33,7 +33,7 @@ variable "nginx_image_tag" {
 
 EOF
 
-cat <<EOF > ~/troubleshooting/task-1/main.tf
+cat <<'EOF' > ~/troubleshooting/task-1/main.tf
 resource "docker_image" "nginx" {
   # Use the value from the locals and variables
   name = ""
@@ -67,7 +67,7 @@ resource "docker_container" "alpine" {
 EOF
 
 
-cat <<EOF > ~/troubleshooting/task-1/locals.tf
+cat <<'EOF' > ~/troubleshooting/task-1/locals.tf
 locals {
   # Set the value for the alpine_image_name variable
   # The value represents the name of the docker registry: https://hub.docker.com/_/nginx
