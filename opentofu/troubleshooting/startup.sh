@@ -1,6 +1,8 @@
 #!/bin/bash
+# Update packages
+apt-get update -y && apt-get upgrade -y
+
 # Install OpenTofu
-#!/bin/bash
 
 # Download the installer script:
 curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
@@ -17,7 +19,7 @@ chmod +x install-opentofu.sh
 # Remove the installer:
 rm -f install-opentofu.sh
 
-apt-get update && apt-get install -y docker.io
+apt-get install -y docker.io
 
 # Start Docker service if not running
 if ! pgrep dockerd &> /dev/null; then
