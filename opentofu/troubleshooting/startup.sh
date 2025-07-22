@@ -14,3 +14,6 @@ fi
 # Verify installations
 tofu version
 docker --version 
+
+# Create folder with exercises
+mkdir ~/troubleshooting
