@@ -30,5 +30,5 @@ docker --version
 # Create folder with exercises
 mkdir ~/troubleshooting
 for i in {1..8}; do
-  mkdir "$HOME/troubleshooting/task-${i}"
+  mkdir ~/troubleshooting/task-$i
 done
