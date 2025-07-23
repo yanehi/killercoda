@@ -7,6 +7,7 @@
     "items": [
       { "path": "tofu-cli" , "title": "Learn the basic commands and flags to interact with your infrastructure." },
       { "path": "introduction-tofu" , "title": "Introduction of the basic syntax and data type of Terraform/OpenTofu ." },
+      { "path": "modules-environments" , "title": "Modules and environment handling with Terraform/OpenTofu" },
       { "path": "troubleshooting" , "title": "Find and solve common issues in Terraform/OpenTofu." }
     ]
 }
