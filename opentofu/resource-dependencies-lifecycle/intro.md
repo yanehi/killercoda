@@ -1,1 +1,1 @@
-Understanding resource dependencies and lifecycles.
+Understanding resource dependencies and lifecycles
