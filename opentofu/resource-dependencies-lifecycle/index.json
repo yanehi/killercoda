@@ -1,0 +1,31 @@
+{
+    "title": "Resource Dependencies and Lifecycle",
+    "description": "Understanding resource dependencies and lifecycles.",
+    "details": {
+      "intro": {
+        "text": "intro.md",
+        "foreground": "startup.sh"
+      },
+      "finish": {
+        "text": "finish.md"
+      },
+      "steps": [
+        {
+          "title": "Explicit dependencies",
+          "text": "task-1/text.md",
+          "background": "task-1/background.sh"
+        },
+        {
+          "title": "Implicit dependencies",
+          "text": "task-2/text.md",
+          "background": "task-2/background.sh"
+        }
+      ]
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    },
+    "interface": {
+      "layout": "ide"
+    }
+  }

@@ -6,7 +6,8 @@
     "time": "1 hour",
     "items": [
       { "path": "tofu-cli" , "title": "Learn the basic commands and flags to interact with your infrastructure." },
-      { "path": "introduction-tofu" , "title": "Introduction of the basic syntax and data type of Terraform/OpenTofu ." },
+      { "path": "introduction-tofu" , "title": "Introduction of the basic syntax and data type of Terraform/OpenTofu." },
+      { "path": "resource-dependencies-lifecycle" , "title": "Understanding resource dependencies and lifecycles." },
       { "path": "troubleshooting" , "title": "Find and solve common issues in Terraform/OpenTofu." }
     ]
 }

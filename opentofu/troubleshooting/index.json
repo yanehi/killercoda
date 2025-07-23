@@ -13,7 +13,6 @@
         {
           "title": "Variables and locals",
           "text": "task-1/text.md",
-          "foreground": "task-1/startup.sh",
           "background": "task-1/background.sh"
         },
         {
