@@ -19,37 +19,44 @@
         {
           "title": "Variable interpolation",
           "text": "task-2/text.md",
-          "background": "task-2/background.sh"
+          "background": "task-2/background.sh",
+          "verify": "task-2/verify.sh"
         },
         {
           "title": "Syntax errors",
           "text": "task-3/text.md",
-          "background": "task-3/background.sh"
+          "background": "task-3/background.sh",
+          "verify": "task-3/verify.sh"
         },
         {
           "title": "Resource names",
           "text": "task-4/text.md",
-          "background": "task-4/background.sh"
+          "background": "task-4/background.sh",
+          "verify": "task-4/verify.sh"
         },
         {
           "title": "Resource attributes",
           "text": "task-5/text.md",
-          "background": "task-5/background.sh"
+          "background": "task-5/background.sh",
+          "verify": "task-5/verify.sh"
         },
         {
           "title": "Race conditions",
           "text": "task-6/text.md",
-          "background": "task-6/background.sh"
+          "background": "task-6/background.sh",
+          "verify": "task-6/verify.sh"
         },
         {
           "title": "Cycle dependencies",
           "text": "task-7/text.md",
-          "background": "task-7/background.sh"
+          "background": "task-7/background.sh",
+          "verify": "task-7/verify.sh"
         },
         {
           "title": "Various",
           "text": "task-8/text.md",
-          "background": "task-8/background.sh"
+          "background": "task-8/background.sh",
+          "verify": "task-8/verify.sh"
         }
       ]
     },

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat <<'EOF' > ~/troubleshooting/solution-1/provider.tf
+cat <<'EOF' > ~/troubleshooting/solution-6/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -15,7 +15,7 @@ provider "docker" {
 }
 EOF
 
-cat <<'EOF' > ~/troubleshooting/solution-1/variables.tf
+cat <<'EOF' > ~/troubleshooting/solution-6/variables.tf
 variable "environment" {
   type        = string
   description = "Environment to deploy the container (dev, test, prod)"
@@ -35,7 +35,7 @@ variable "alpine_image_tag" {
 }
 EOF
 
-cat <<'EOF' > ~/troubleshooting/solution-1/main.tf
+cat <<'EOF' > ~/troubleshooting/solution-6/main.tf
 # Pull the nginx image
 resource "docker_image" "nginx" {
   name = "${local.nginx_image_name}:${var.nginx_image_tag}"
@@ -50,6 +50,8 @@ resource "docker_image" "alpine" {
 resource "docker_container" "nginx" {
   image = docker_image.nginx.name
   name  = local.nginx_container_name
+  # Set an environment variable with the value of the container id from the alpine container
+  env = ["ALPINE_DOCKER_CONTAINER_ID=${docker_container.alpine.id}"]
   ports {
     internal = 80
     external = 8080
@@ -67,7 +69,7 @@ resource "docker_container" "alpine" {
 EOF
 
 
-cat <<'EOF' > ~/troubleshooting/solution-1/locals.tf
+cat <<'EOF' > ~/troubleshooting/solution-6/locals.tf
 locals {
   alpine_image_name = "alpine"
   nginx_image_name  = "nginx"
@@ -76,6 +78,3 @@ locals {
   nginx_container_name  = "topic4-nginx-${var.environment}"
 }
 EOF
-
-# cd ~/troubleshooting/task-1
-# tofu init && tofu apply -auto-approve

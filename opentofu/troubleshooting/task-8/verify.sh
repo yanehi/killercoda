@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat <<'EOF' > ~/troubleshooting/solution-1/provider.tf
+cat <<'EOF' > ~/troubleshooting/solution-8/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -15,7 +15,7 @@ provider "docker" {
 }
 EOF
 
-cat <<'EOF' > ~/troubleshooting/solution-1/variables.tf
+cat <<'EOF' > ~/troubleshooting/solution-8/variables.tf
 variable "environment" {
   type        = string
   description = "Environment to deploy the container (dev, test, prod)"
@@ -35,7 +35,7 @@ variable "alpine_image_tag" {
 }
 EOF
 
-cat <<'EOF' > ~/troubleshooting/solution-1/main.tf
+cat <<'EOF' > ~/troubleshooting/solution-8/main.tf
 # Pull the nginx image
 resource "docker_image" "nginx" {
   name = "${local.nginx_image_name}:${var.nginx_image_tag}"
@@ -50,6 +50,8 @@ resource "docker_image" "alpine" {
 resource "docker_container" "nginx" {
   image = docker_image.nginx.name
   name  = local.nginx_container_name
+  # Set an environment variable with the value of the container id from the alpine container
+  env = ["ALPINE_DOCKER_CONTAINER_ID=${docker_container.alpine.id}"]
   ports {
     internal = 80
     external = 8080
@@ -60,14 +62,29 @@ resource "docker_container" "nginx" {
 resource "docker_container" "alpine" {
   image = docker_image.alpine.name
   name  = local.alpine_container_name
+  volumes {
+    read_only = true
+    host_path = "${path.cwd}/files/"
+    container_path = "/files"
+  }
 
   # Keep the container running
   command = ["tail", "-f", "/dev/null"]
 }
+
+data "docker_logs" "nginx_logs" {
+  name = docker_container.nginx.name
+  details = false
+  follow = false
+  logs_list_string_enabled = true
+  show_stderr = false
+  show_stdout = true
+  timestamps = false
+}
 EOF
 
 
-cat <<'EOF' > ~/troubleshooting/solution-1/locals.tf
+cat <<'EOF' > ~/troubleshooting/solution-8/locals.tf
 locals {
   alpine_image_name = "alpine"
   nginx_image_name  = "nginx"
@@ -77,5 +94,7 @@ locals {
 }
 EOF
 
-# cd ~/troubleshooting/task-1
-# tofu init && tofu apply -auto-approve
+mkdir -p ~/troubleshooting/solution-8/files
+cat <<'EOF' > ~/troubleshooting/solution-8/files/example.txt
+Tofu Exercises
+EOF
