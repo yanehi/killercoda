@@ -1,7 +1,7 @@
 #!/bin/bash
 # Create provider.tf file
 
-cat <<'EOF' > ~/resource-dependencies-lifecycle/task-2/provider.tf
+cat <<'EOF' > ~/resource-dependencies-lifecycle/solution-2/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -17,21 +17,23 @@ provider "docker" {
 EOF
 
 
-cat <<'EOF' > ~/resource-dependencies-lifecycle/task-2/main.tf
+cat <<'EOF' > ~/resource-dependencies-lifecycle/solution-2/main.tf
 # Pull the nginx image
 resource "docker_image" "nginx" {
   name = "nginx:latest"
 }
 
 # Pull the alpine image
-
+resource "docker_image" "alpine" {
+  name = "alpine:latest"
+}
 
 # Create a nginx container which depends on the creation of the alpine container
 resource "docker_container" "nginx" {
   image = docker_image.nginx.name
   name  = "tutorial-nginx"
-  # Hint: Extract the container id from the alpine container
-  env = ["ALPINE_DOCKER_CONTAINER_ID=REFERENCE_CONTAINER_ID}"]
+  # Set an environment variable with the value of the container id from the alpine container
+  env = ["ALPINE_DOCKER_CONTAINER_ID=${docker_container.alpine.id}"]
   ports {
     internal = 80
     external = 8080
@@ -39,5 +41,11 @@ resource "docker_container" "nginx" {
 }
 
 # Create an alpine container
-## Add the following command to keep the container running =>  command = ["tail", "-f", "/dev/null"]
+resource "docker_container" "alpine" {
+  image = docker_image.alpine.name
+  name  = "topic2-alpine"
+
+  # Keep the container running
+  command = ["tail", "-f", "/dev/null"]
+}
 EOF

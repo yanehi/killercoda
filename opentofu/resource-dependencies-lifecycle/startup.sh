@@ -3,8 +3,9 @@
 # Create folder with exercises
 mkdir ~/resource-dependencies-lifecycle
 for i in {1..2}; do
-  echo "Create folder task-$i"
+  echo "Create folder task-$i and solution-$i"
   mkdir ~/resource-dependencies-lifecycle/task-$i
+  mkdir ~/resource-dependencies-lifecycle/solution-$i
 done
 
 # Update packages

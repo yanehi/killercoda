@@ -1,7 +1,7 @@
 #!/bin/bash
 # Create provider.tf file
 
-cat <<'EOF' > ~/resource-dependencies-lifecycle/task-1/provider.tf
+cat <<'EOF' > ~/resource-dependencies-lifecycle/solution-1/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -17,14 +17,15 @@ provider "docker" {
 EOF
 
 
-cat <<'EOF' > ~/resource-dependencies-lifecycle/task-1/main.tf
+cat <<'EOF' > ~/resource-dependencies-lifecycle/solution-1/main.tf
 # Pulls the image
 resource "docker_image" "nginx" {
   name = "nginx:latest"
 }
 
-# Pull the alpine image
-
+resource "docker_image" "alpine" {
+  name = "alpine:latest"
+}
 
 # Create a nginx container which depends on the private_network and the creation of an alpine container
 resource "docker_container" "nginx" {
@@ -36,10 +37,14 @@ resource "docker_container" "nginx" {
     external = 8080
   }
 
-  # Create an explicit dependency on the alpine container
+  depends_on = [docker_container.alpine]
 
 }
 
-# Create an alpine container
-## Add the following command to keep the container running =>  command = ["tail", "-f", "/dev/null"]
+resource "docker_container" "alpine" {
+  image = docker_image.alpine.name
+  name  = "topic2-alpine"
+
+  command = ["tail", "-f", "/dev/null"]
+}
 EOF
