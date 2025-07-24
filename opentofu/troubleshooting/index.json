@@ -14,7 +14,7 @@
           "title": "Variables and locals",
           "text": "task-1/text.md",
           "background": "task-1/background.sh",
-          "verify": "solution-1/verify.sh"
+          "verify": "task-1/verify.sh"
         },
         {
           "title": "Variable interpolation",
