@@ -77,3 +77,6 @@ locals {
   nginx_container_name  = "topic4-nginx-${var.environment}"
 }
 EOF
+
+cd ~/troubleshooting/task-1
+tofu init && tofu apply -auto-approve
