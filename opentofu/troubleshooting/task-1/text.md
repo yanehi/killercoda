@@ -1,6 +1,4 @@
-# Variables and locals
-
-In this exercise, the focus is on dealing with variables and locals in terraform. Fix the errors in the code and create any missing resources.
+In this exercise, the focus is on dealing with variables and locals in tofu. Fix the errors in the code and create any missing resources.
 
 1. Open the task-1 folder in the terminal
 

@@ -1,7 +1,3 @@
-# Cycle dependencies
-
-tbd.
-
 1. Open the task-7 folder in the terminal
 
 ```

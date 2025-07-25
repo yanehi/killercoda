@@ -1,7 +1,3 @@
-# Race conditions
-
-tbd.
-
 1. Open the task-6 folder in the terminal
 
 ```

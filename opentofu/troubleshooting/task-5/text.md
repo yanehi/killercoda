@@ -1,7 +1,3 @@
-# Resource attributes
-
-tbd.
-
 1. Open the task-5 folder in the terminal
 
 ```

@@ -1,7 +1,3 @@
-# Various
-
-tbd.
-
 1. Open the task-8 folder in the terminal
 
 ```

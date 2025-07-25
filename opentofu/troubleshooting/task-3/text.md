@@ -1,7 +1,3 @@
-# Syntax errors
-
-tbd.
-
 1. Open the task-3 folder in the terminal
 
 ```

@@ -1,4 +1,4 @@
-Terraform automatically discovers resource dependencies by analyzing resource attributes. These dependencies are typically declared through expression references, using interpolation syntax. When one resource property references another resource’s property or output, Terraform is able to determine the correct order of operations without additional configuration.
+Tofu automatically discovers resource dependencies by analyzing resource attributes. These dependencies are typically declared through expression references, using interpolation syntax. When one resource property references another resource’s property or output, Tofu is able to determine the correct order of operations without additional configuration.
 
 ```hcl
 resource "aws_instance" "example_a" {​
