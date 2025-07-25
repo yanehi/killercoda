@@ -1,6 +1,6 @@
 {
     "title": "Troubleshooting",
-    "description": "Find and solve common issues in Terraform/OpenTofu.",
+    "description": "Find and solve common issues in OpenTofu.",
     "details": {
       "intro": {
         "text": "intro.md",
