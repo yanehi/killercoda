@@ -36,6 +36,7 @@ resource "docker_container" "nginx" {
 EOF
 
 cd ~/tmp/task-9
+tofu init
 tofu apply -auto-approve
 
 
