@@ -1,8 +1,6 @@
 # Variables and locals
 
-
 In this exercise, the focus is on dealing with variables and locals in terraform. Fix the errors in the code and create any missing resources.
-
 
 1. Open the task-1 folder in the terminal
 
@@ -16,4 +14,12 @@ cd ~/troubleshooting/task-1
 tofu validate
 ```{{exec}}
 
-3. Fix the errors and check the plan with the `tofu apply` command
+3. Fix the errors and check the plan:
+
+```
+tofu apply
+```{{exec}}
+
+When you click the `Check` button after completing the exercise, the solution for `task-<number>` will be generated in the corresponding `solution-<number>` folder.
+
+> **_NOTE:_** Please wait until the environment is fully prepared before starting the exercise (`Start` button). You can monitor the preparation status in the terminal on the right side.
