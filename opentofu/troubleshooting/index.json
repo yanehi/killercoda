@@ -57,6 +57,12 @@
           "text": "task-8/text.md",
           "background": "task-8/background.sh",
           "verify": "task-8/verify.sh"
+        },
+        {
+          "title": "Duplicate resources",
+          "text": "task-9/text.md",
+          "background": "task-9/background.sh",
+          "verify": "task-9/verify.sh"
         }
       ]
     },

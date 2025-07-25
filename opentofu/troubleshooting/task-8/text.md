@@ -16,4 +16,4 @@ tofu validate
 tofu apply
 ```{{exec}}
 
-When you click the `Check` button after completing the exercise, the solution for `task-<number>` will be generated in the corresponding `solution-<number>` folder.
+When you click the `Check` button after completing the exercise, the solution for `task-8` will be generated in the corresponding `solution-8` folder.
