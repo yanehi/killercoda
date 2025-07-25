@@ -90,7 +90,7 @@ locals {
   nginx_image_name  = "nginx"
 
   alpine_container_name = "topic4-alpine-${var.environment}"
-  nginx_container_name  = "topic4-nginx-${var.environment}"
+  nginx_container_name  = "topic4-nginx-new-${var.environment}"
 }
 EOF
 
