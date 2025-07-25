@@ -12,7 +12,20 @@ resource "aws_instance" "example" {​
 }
 ```
 
-## Steps
+## Tasks
+
+Create an nginx container that explicitly depends on both the private_network and the successful creation of an alpine container.
+
+### Hint
+
+Add the following command to keep the alpine container running:
+
+```yaml
+command = ["tail", "-f", "/dev/null"]
+```
+
+
+## Useful commands
 
 1. Open the task-1 folder in the terminal
 
@@ -20,16 +33,22 @@ resource "aws_instance" "example" {​
 cd ~/resource-dependencies-lifecycle/task-1
 ```{{exec}}
 
-2. Check with the commands if the code is syntactic correctly
+2. Initialize
+
+```
+tofu init
+```{{exec}}
+
+3. Check with the commands if the code is syntactic correctly
 
 ```
 tofu validate
 ```{{exec}}
 
-3. Fix the errors and check the plan:
+4. Fix the errors and check the plan:
 
 ```
 tofu apply
 ```{{exec}}
 
-When you click the `Check` button after completing the exercise, the solution for `task-<number>` will be generated in the corresponding `solution-<number>` folder.
+When you click the `Check` button after completing the exercise, the solution for `task-1` will be generated in the corresponding `solution-1` folder.

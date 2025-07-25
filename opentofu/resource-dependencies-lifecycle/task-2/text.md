@@ -14,6 +14,19 @@ resource "aws_eip" "ip" {​
 }
 ```
 
+## Tasks
+
+Create an nginx container that implicitly depends on successful creation of an alpine container.
+
+### Hint
+
+Add the following command to keep the alpine container running:
+
+```yaml
+command = ["tail", "-f", "/dev/null"]
+```
+
+
 ## Steps
 
 1. Open the task-2 folder in the terminal

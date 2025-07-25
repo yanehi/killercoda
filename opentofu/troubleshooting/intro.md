@@ -2,6 +2,8 @@
 
 ![Everything fine](./assets/syntax_error.png)
 
+## Foreword
+
 In this exercise, you’ll need to identify and resolve a variety of errors in OpenTofu code. From syntax mistakes to misconfigured resources and logical pitfalls, the scenarios you encounter are based on real-world issues that can pop up when working with Infrastructure as Code.
 
 - Review the provided OpenTofu configuration files
