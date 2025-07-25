@@ -10,4 +10,4 @@ In this exercise, you’ll need to identify and resolve a variety of errors in O
 
 Good luck—and happy debugging!
 
-> :warning: Please wait until the environment is fully prepared before starting the exercise (`Start` button). You can monitor the preparation status in the terminal on the right side!
+> **_CAUTION:_** Please wait until the environment is fully prepared before starting the exercise (`Start` button). You can monitor the preparation status in the terminal on the right side.
