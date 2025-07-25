@@ -1,6 +1,6 @@
 {
     "title": "Troubleshooting",
-    "description": "Find and solve common issues in Terraform/OpenTofu.",
+    "description": "Find and solve common issues in OpenTofu.",
     "details": {
       "intro": {
         "text": "intro.md",
@@ -11,44 +11,58 @@
       },
       "steps": [
         {
-          "title": "Variables and locals",
+          "title": "Task 1: Variables and locals",
           "text": "task-1/text.md",
-          "background": "task-1/background.sh"
+          "background": "task-1/background.sh",
+          "verify": "task-1/verify.sh"
         },
         {
-          "title": "Variable interpolation",
+          "title": "Task 2: Variable interpolation",
           "text": "task-2/text.md",
-          "background": "task-2/background.sh"
+          "background": "task-2/background.sh",
+          "verify": "task-2/verify.sh"
         },
         {
-          "title": "Syntax errors",
+          "title": "Task 3: Syntax errors",
           "text": "task-3/text.md",
-          "background": "task-3/background.sh"
+          "background": "task-3/background.sh",
+          "verify": "task-3/verify.sh"
         },
         {
-          "title": "Resource names",
+          "title": "Task 4: Resource names",
           "text": "task-4/text.md",
-          "background": "task-4/background.sh"
+          "background": "task-4/background.sh",
+          "verify": "task-4/verify.sh"
         },
         {
-          "title": "Resource attributes",
+          "title": "Task 5: Resource attributes",
           "text": "task-5/text.md",
-          "background": "task-5/background.sh"
+          "background": "task-5/background.sh",
+          "verify": "task-5/verify.sh"
         },
         {
-          "title": "Race conditions",
+          "title": "Task 6: Race conditions",
           "text": "task-6/text.md",
-          "background": "task-6/background.sh"
+          "background": "task-6/background.sh",
+          "verify": "task-6/verify.sh"
         },
         {
-          "title": "Cycle dependencies",
+          "title": "Task 7: Cycle dependencies",
           "text": "task-7/text.md",
-          "background": "task-7/background.sh"
+          "background": "task-7/background.sh",
+          "verify": "task-7/verify.sh"
         },
         {
-          "title": "Various",
+          "title": "Task 8: Various",
           "text": "task-8/text.md",
-          "background": "task-8/background.sh"
+          "background": "task-8/background.sh",
+          "verify": "task-8/verify.sh"
+        },
+        {
+          "title": "Task 9: Duplicate resources",
+          "text": "task-9/text.md",
+          "background": "task-9/background.sh",
+          "verify": "task-9/verify.sh"
         }
       ]
     },

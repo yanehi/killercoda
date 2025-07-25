@@ -1,3 +1,0 @@
-# Install OpenTofu CLI
-
-tbd.

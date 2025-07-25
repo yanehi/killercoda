@@ -8,7 +8,7 @@ In this task, you will:
 
 ## Foreword
 
-Refactoring is more than just splitting files—it's about making your code easier to read, maintain, and scale. Following best practices helps you and your team avoid mistakes and work more efficiently. In this task, you'll apply key refactoring habits to your Terraform/OpenTofu project.
+Refactoring is more than just splitting files—it's about making your code easier to read, maintain, and scale. Following best practices helps you and your team avoid mistakes and work more efficiently. In this task, you'll apply key refactoring habits to your OpenTofu project.
 
 ## Steps
 
@@ -46,4 +46,4 @@ Refactoring is more than just splitting files—it's about making your code easi
 
 ## Afterword
 
-Applying these best practices will make your Terraform/OpenTofu codebase easier to manage and scale. Clean, well-organized code is essential for professional infrastructure projects and effective teamwork. Regularly review and refactor your configuration as your project grows. 
+Applying these best practices will make your Terraform/OpenTofu codebase easier to manage and scale. Clean, well-organized code is essential for professional infrastructure projects and effective teamwork. Regularly review and refactor your configuration as your project grows.

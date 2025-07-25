@@ -2,9 +2,11 @@
 
 # Create folder with exercises
 mkdir ~/troubleshooting
-for i in {1..8}; do
-  echo "Create folder task-$i"
+mkdir ~/temporary
+for i in {1..9}; do
+  echo "Create folder task-$i and solution-$i"
   mkdir ~/troubleshooting/task-$i
+  mkdir ~/troubleshooting/solution-$i
 done
 
 # Update packages
