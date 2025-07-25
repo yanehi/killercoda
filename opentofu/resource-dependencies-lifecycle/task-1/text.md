@@ -1,3 +1,5 @@
+## Foreword
+
 At times, the relationship between resources isn’t established through direct references alone. In these situations, you can use the `depends_on` attribute to explicitly define dependencies.
 
 This should only be used when Tofu cannot automatically determine the correct order of resource creation, or when certain provisioning steps must occur before or after a specific resource is deployed.
@@ -9,6 +11,8 @@ resource "aws_instance" "example" {​
   depends_on = [aws_s3_bucket.example]​
 }
 ```
+
+## Steps
 
 1. Open the task-1 folder in the terminal
 

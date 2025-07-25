@@ -11,13 +11,13 @@
       },
       "steps": [
         {
-          "title": "Explicit dependencies",
+          "title": "Task 1: Explicit dependencies",
           "text": "task-1/text.md",
           "background": "task-1/background.sh",
           "verify": "task-1/verify.sh"
         },
         {
-          "title": "Implicit dependencies",
+          "title": "Task 2: Implicit dependencies",
           "text": "task-2/text.md",
           "background": "task-2/background.sh",
           "verify": "task-2/verify.sh"

@@ -1,3 +1,5 @@
+## Steps
+
 1. Open the task-1 folder in the terminal
 
 ```
