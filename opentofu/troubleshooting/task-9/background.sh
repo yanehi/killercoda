@@ -1,6 +1,5 @@
 #!/bin/bash
 
-mkdir /tmp/task-9
 cat <<'EOF' > ~/tmp/task-9/provider.tf
 terraform {
   required_providers {
@@ -36,7 +35,8 @@ resource "docker_container" "nginx" {
 }
 EOF
 
-
+cd ~/tmp/task-9
+tofu apply -auto-approve
 
 
 
