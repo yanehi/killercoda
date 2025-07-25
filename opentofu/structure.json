@@ -1,6 +1,6 @@
 {
     "title": "OpenTofu",
-    "description": "Some scenarios to learn and get conform with opentofu for infrastructure deployments.",
+    "description": "Exercises to learn and get conform with opentofu for infrastructure deployments.",
     "icon":"fa-terraform",
     "difficulty": "Beginner",
     "time": "1 hour",
