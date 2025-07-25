@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat <<'EOF' > ~/tmp/task-9/provider.tf
+cat <<'EOF' > ~/temporary/task-9/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -15,7 +15,7 @@ provider "docker" {
 }
 EOF
 
-cat <<'EOF' > ~/tmp/task-9/main.tf
+cat <<'EOF' > ~/temporary/task-9/main.tf
 locals {
   nginx_image_name  = "nginx"
   nginx_container_name  = "topic4-nginx-dev"
@@ -35,7 +35,7 @@ resource "docker_container" "nginx" {
 }
 EOF
 
-cd ~/tmp/task-9
+cd ~/temporary/task-9
 tofu init
 tofu apply -auto-approve
 

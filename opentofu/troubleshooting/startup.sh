@@ -2,7 +2,7 @@
 
 # Create folder with exercises
 mkdir ~/troubleshooting
-mkdir ~/tmp/task-9
+mkdir ~/temporary/task-9
 for i in {1..9}; do
   echo "Create folder task-$i and solution-$i"
   mkdir ~/troubleshooting/task-$i
