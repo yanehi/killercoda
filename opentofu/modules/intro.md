@@ -1,19 +1,14 @@
-# Introduction: Modules and Environment Handling with Terraform/OpenTofu
+# Modules
 
-Welcome to this scenario! Here, you will learn how to structure Terraform/OpenTofu code using modules and manage multiple environments, all with the kreuzwerker/docker provider.
+## Foreword
+
+Modules in OpenTofu implement the concept of DRY (Don't Repeat Yourself) in your infrastructure code. They allow you to encapsulate and reuse configurations, making your infrastructure code more modular and maintainable.
+
+When you click the `Check` button after completing the exercise, the solution for `task-<number>` will be generated in the corresponding `solution-<number>` folder.
 
 ## Learning Objectives
-- Structure code with reusable modules
-- Organize code and folders for clarity
-- Use dedicated module versions
-- Provision infrastructure for test, stage, and prod environments
-- Pass and manage environment variables
-- Concatenate variables for dynamic configuration
-- Move resources into modules and handle state migration
+- Usage and limitations of modules for reusable infrastructure components
+- Recommended folder structure for modules and their benefits
+- Working with the Tofu Module Registry, versioning and associated risk
 
-## Prerequisites
-- Basic Terraform/OpenTofu knowledge (see previous scenario)
-- Familiarity with Docker concepts
-
-## Scenario Overview
-You will complete a series of tasks, each building on the previous, to gain practical experience with modules and environment handling in Terraform/OpenTofu. 
+> **_CAUTION:_** Please wait until the environment is fully prepared before starting the exercise (`Start` button). You can monitor the preparation status in the terminal on the right side.

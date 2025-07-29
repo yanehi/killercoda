@@ -1,21 +1,16 @@
-# Task 1: Introduction to Modules and Folder Structure
-
 ## Foreword
-In this task, you will:
-- Learn what modules and their benefits are
-- See a recommended folder structure for modules
-- Create a reusable nginx_container module that includes a Docker image, container, and network
-- Reference the module from your root configuration
+An OpenTofu module is a self-contained directory, separate from the root OpenTofu configuration, that contains a collection of configuration files (*.tf or *.tofu). 
+These files together define a reusable, logical component of your infrastructure.
 
-## What is a Module?
-In Terraform/OpenTofu, a modul acts as a container for a set of resources that are logically grouped together. This allows you to encapsulate and reuse configurations, making your infrastructure code more modular and maintainable.
-The Terraform/OpenTofu module is a directory consisting of a collection of `*.tf` or `*.tofu` files which defines the module. In general modules consists of:
-- **Resources**: The actual infrastructure components, such as virtual machines, networks, or databases.
-- **Variables**: Input parameters that allow you to customize the module's behavior without changing its code.
-- **Outputs**: Values that the module can return, which can be used by other modules or the root configuration.
+![Module structure](./../assets/module_structure.png)
 
-After defining a module, you can use it in your root configuration or other modules by referencing its source path. This promotes code reuse and helps maintain a clean and organized codebase.
-### Module instantiation example
+In general, a recommended module structure consists of [source](https://opentofu.org/docs/language/modules/#using-modules):
+- **Ressource definitions**: The actual resources (like servers, networks, databases) that the module manages.
+- **Input variables**: Parameters that allow you to customize the module’s behavior from the outside.
+- **Output values**: Values that the module returns after creation, which can be used elsewhere in your OpenTofu configuration.
+
+After defining a module, you can use it in your root configuration or other modules by referencing its source path. 
+To use a module in OpenTofu, you declare a module block in your configuration. The block requires:
 ```hcl
    module "module_name" {
      source       = "<relative path to the module ressources>"
@@ -24,41 +19,39 @@ After defining a module, you can use it in your root configuration or other modu
      variable_parameter3 = "value3"
    }
    ```
+- **A unique name** to reference the module within your code.
+- **A source argument** specifying where the module’s code is located. This can be a local path, a Git repository, or a module registry.
+- **Input variables** required by the module to configure the inside ressources, passed as arguments.
 
 
 ## Task
-We want to create a reusable module for a nginx container that includes a Docker image, container, and network. This module will allow us to easily deploy a nginx container with its own network in any environment.
-1.  First create module subdirectory where all modules will be defined. The folger structure should look like this:
-   ```shell
-     # Create the folder structure
-     mkdir -p modules/nginx_container
-     
-     # Create the module files
-     touch main.tf
-     touch modules/nginx_container/main.tf
-     touch modules/nginx_container/variables.tf
-     touch modules/nginx_container/outputs.tf
-     
-     # Show the folder structure
-     ls -laR
-   ```   
-
-2. In `modules/nginx_container/main.tf`, define the following resources from [Kreuzberg Provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs):
-   - A `docker_network` resource for the container's network
-   - A `docker_image` resource for the nginx image
-   - A `docker_container` resource that uses the image and network
-3. In `modules/nginx_container/variables.tf`, define variables for image name, container name, and network name. 
-4. In `modules/nginx_container/outputs.tf`, output the container ID and network name.
-5. In your root `main.tf`, use the module:
+Create a reusable module for a nginx container that includes a Docker image, container, and network resources. 
+1. Start by creating the following folder structure:
+```plaintext
+module/ngnix_container/
+├── main.tf
+├── variables.tf
+└── outputs.tf
+```
+2. In the `modules/nginx_container/variables.tf`, the input parameters should be defined by creating `variables` for:
+   - **network_name** for the name of the network
+   - **image_name** for the image name
+   - **container_name** for the container name
+3. In `modules/nginx_container/main.tf`, define the following resources from the [Kreuzberg provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs):
+   - **docker_network** resource for the container's network and use the `network_name` variable
+   - **docker_image** resource for the nginx image using the `image_name` variable
+   - **docker_container** resource that uses the image and network as well as the `container_name` variable. Ensure to set the `network` attribute to the created network and expose port 80.
+4. In your root `main.tf`, use the module:
    ```hcl
-   module "nginx" {
+   module "nginx_latest" {
      source       = "./modules/nginx_container"
-     image        = "nginx:latest"
+     image_name   = "nginx:latest"
      container_name = "my-nginx"
      network_name = "nginx-net"
    }
    ```
-6. Run `tofu init`, `tofu fmt -recursive`, `tofu validate` and `tofu apply` to provision the container, image, and network via the module.
+5. Run `tofu init`, `tofu fmt -recursive`, `tofu validate` and `tofu apply` to provision the container, image, and network via the module.
+
 
 ## Afterword:
 Grouping related resources in a module makes your code more reusable and easier to manage. You can now use this module in any environment or project that needs an nginx container with its own network. 
