@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Create directory structure in current directory
+mkdir -p ./solution-1/modules/nginx_container
+
 # Create provider.tf file
-cat <<'EOF' > ~/modules/solution-1/provider.tf
+cat <<'EOF' > ./solution-1/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -16,11 +19,8 @@ provider "docker" {
 }
 EOF
 
-# Create module directory structure
-mkdir -p ~/modules/solution-1/modules/nginx_container
-
 # Create variables.tf for the module
-cat <<'EOF' > ~/modules/solution-1/modules/nginx_container/variables.tf
+cat <<'EOF' > ./solution-1/modules/nginx_container/variables.tf
 variable "network_name" {
   description = "Name of the Docker network"
   type        = string
@@ -38,7 +38,16 @@ variable "container_name" {
 EOF
 
 # Create main.tf for the module
-cat <<'EOF' > ~/modules/solution-1/modules/nginx_container/main.tf
+cat <<'EOF' > ./solution-1/modules/nginx_container/main.tf
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "3.0.2"
+    }
+  }
+}
+
 resource "docker_network" "nginx_network" {
   name = var.network_name
 }
@@ -63,11 +72,11 @@ resource "docker_container" "nginx_container" {
 EOF
 
 # Create outputs.tf for the module
-cat <<'EOF' > ~/modules/solution-1/modules/nginx_container/outputs.tf
+cat <<'EOF' > ./solution-1/modules/nginx_container/outputs.tf
 EOF
 
 # Create the root main.tf
-cat <<'EOF' > ~/modules/solution-1/main.tf
+cat <<'EOF' > ./solution-1/main.tf
 module "nginx_latest" {
   source         = "./modules/nginx_container"
   image_name     = "nginx:latest"

@@ -1,34 +1,28 @@
+# Task 1
+
 ## Foreword
-An OpenTofu module is a self-contained directory, separate from the root OpenTofu configuration, that contains a collection of configuration files (*.tf or *.tofu). 
-These files together define a reusable, logical component of your infrastructure.
+Modules in OpenTofu solve this problem by letting you group related resources into a reusable unit. Think of a module as a “blueprint” for a specific part of your infrastructure. Instead of copying and pasting the same code, you define it once in a module and use it wherever you need.
+A typical OpenTofu module is simply a folder containing one or more configuration files (ending in .tf or .tofu). [OpenTofu recommends the following folder structure](https://opentofu.org/docs/language/modules/develop/structure/#:~:text=The%20standard%20module%20structure%20is,the%20module%20registry%2C%20and%20more.) when defining an own module:
 
-![Module structure](./../assets/module_structure.png)
+```plaintext
+my_module/
+├── main.tf
+├── variables.tf
+└── outputs.tf
+```
+- **main.tf**: Defines the actual resources (like servers, networks, databases) that the module manages.
+- **variables.tf**: Represents the input parameters that let you customize how the module works each time you use it.
+- **outputs.tf**: Information the module gives back after it runs, which you can use elsewhere in your configuration.
 
-In general, a recommended module structure consists of [source](https://opentofu.org/docs/language/modules/#using-modules):
-- **Ressource definitions**: The actual resources (like servers, networks, databases) that the module manages.
-- **Input variables**: Parameters that allow you to customize the module’s behavior from the outside.
-- **Output values**: Values that the module returns after creation, which can be used elsewhere in your OpenTofu configuration.
 
-After defining a module, you can use it in your root configuration or other modules by referencing its source path. 
-To use a module in OpenTofu, you declare a module block in your configuration. The block requires:
-```hcl
-   module "module_name" {
-     source       = "<relative path to the module ressources>"
-     variable_parameter1 = "value1"
-     variable_parameter2 = "value2"
-     variable_parameter3 = "value3"
-   }
-   ```
-- **A unique name** to reference the module within your code.
-- **A source argument** specifying where the module’s code is located. This can be a local path, a Git repository, or a module registry.
-- **Input variables** required by the module to configure the inside ressources, passed as arguments.
+
 
 
 ## Task
 Create a reusable module for a nginx container that includes a Docker image, container, and network resources. 
 1. Start by creating the following folder structure:
 ```plaintext
-module/ngnix_container/
+modules/ngnix_container/
 ├── main.tf
 ├── variables.tf
 └── outputs.tf
