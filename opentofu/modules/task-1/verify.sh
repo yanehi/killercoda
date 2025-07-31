@@ -21,11 +21,6 @@ EOF
 
 # Create variables.tf for the module
 cat <<'EOF' > ./solution-1/modules/nginx_container/variables.tf
-variable "network_name" {
-  description = "Name of the Docker network"
-  type        = string
-}
-
 variable "image_name" {
   description = "Name of the Docker image"
   type        = string
@@ -48,10 +43,6 @@ terraform {
   }
 }
 
-resource "docker_network" "nginx_network" {
-  name = var.network_name
-}
-
 resource "docker_image" "nginx_image" {
   name = var.image_name
 }
@@ -59,10 +50,6 @@ resource "docker_image" "nginx_image" {
 resource "docker_container" "nginx_container" {
   name  = var.container_name
   image = docker_image.nginx_image.image_id
-
-  networks_advanced {
-    name = docker_network.nginx_network.name
-  }
 
   ports {
     internal = 80
@@ -81,6 +68,5 @@ module "nginx_latest" {
   source         = "./modules/nginx_container"
   image_name     = "nginx:latest"
   container_name = "my-nginx"
-  network_name   = "nginx-net"
 }
 EOF
