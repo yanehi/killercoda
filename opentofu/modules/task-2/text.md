@@ -1,57 +1,71 @@
+# Task 2
+
 ## Foreword
-Modules in OpenTofu/Terraform become more flexible and reusable when they support configurable parameters through variables. These variables allow users to customize the module's behavior without modifying the module's code directly.
+Building upon the module concept from Task 1, we now explore how modules can work together and share information through outputs and inputs. This creates a powerful way to build complex infrastructure by connecting different components.
 
-**Default Values for Variables:**
-You can provide default values for variables, making them optional during module usage. When a variable has a default value, users don't need to specify it explicitly - the default will be used automatically if no value is provided.
+**Module Dependencies and Outputs:**
+When modules need to communicate with each other, they can use outputs from one module as inputs to another. This creates dependencies that ensure resources are created in the correct order and allows modules to share information like container IDs, IP addresses, or connection details.
 
-**Example:** If most web applications listen on port 80, you can set this as the default value for a port variable. However, if you later need to deploy a web server on port 8080, you can easily override the default by specifying the new port value when calling the module.
-
-**Module Outputs:**
-Modules can also return values through outputs, which makes data from the module available to the root module or other modules. This creates a powerful way to chain modules together and share information between different parts of your infrastructure.
-
+**Environment Variables in Containers:**
+Containers often need configuration information from other containers or external sources. By passing outputs from one module as environment variables to another, we can create dynamic, interconnected applications.
 
 ## Task
-Create another variable in the `modules/nginx_container/variables.tf` file to be able to adjust the port from outside the modul. Also the ID of the created nginx container should be returned as an output variable.
+Create a multi-module infrastructure with a database container and an nginx container, where the database container ID is passed as an environment variable to the nginx container.
 
-1. **Add a port variable:** In `modules/nginx_container/variables.tf`, create a new variable named `port` with a default value of `80`.
-
-2. **Update the container configuration:** Reference the `port` variable in the `modules/nginx_container/main.tf` file to set the exposed port of the nginx container dynamically.
-
-3. **Validate your changes:** Run the following commands to ensure everything is configured correctly:
+1. Start by creating the following folder structure:
+```plaintext
+modules/
+├── nginx_container/
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+└── database_container/
+    ├── main.tf
+    ├── variables.tf
+    └── outputs.tf
 ```
-tofu fmt -recursive
-```{{exec}}
 
-```
-tofu validate
-```{{exec}}
+2. In the `modules/database_container/variables.tf`, define the input parameters:
+   - **image_name** for the database image name
+   - **container_name** for the database container name
+   - **db_name** for the database name
+   - **db_user** for the database user
+   - **db_password** for the database password (mark as sensitive)
+   - **db_port** for the database port (default: 3306)
 
-```
-tofu plan
-```{{exec}}
+3. In `modules/database_container/main.tf`, define the following resources from the [Kreuzwerk Provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs):
+   - **docker_image** resource for the MySQL image using the `image_name` variable
+   - **docker_container** resource for the MySQL container with:
+     - Environment variables for database configuration (MYSQL_ROOT_PASSWORD, MYSQL_DATABASE, etc.)
+     - Port mapping using the `db_port` variable
+     - Health check to ensure the database is ready
 
-```
-tofu apply
-```{{exec}}
+4. In `modules/database_container/outputs.tf`, define outputs for:
+   - **container_id** - the ID of the database container
+   - **container_name** - the name of the database container
+   - **db_port** - the port exposed by the database
+   - **db_password** - the port exposed by the database
 
-4. **Add an output variable:** Define an output variable in `modules/nginx_container/outputs.tf` to return the container ID of the nginx container from [Kreuzberg](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container#read-only).
-5. **Add an output variable:** In your root `option.tf`, add an output block to display the container ID of the nginx container after reference the output of your module. Read more about [https://opentofu.org/docs/language/modules/syntax/#accessing-module-output-values).
-6. **Apply your changes:** Run the following command to apply your changes and see the output:
+5. In the `modules/nginx_container/variables.tf`, expand the input parameters:
+   - **db_container_id** - the container id of the database
+   - **db_host** - the container name in which the DB is hosted
+   - **db_port** - the port on which the database can be accessed
+   - **db_password** the password of the database to connect to (mark as sensitive)
 
-```
-tofu fmt -recursive
-```{{exec}}
+6. In `modules/nginx_container/main.tf`, expand the `docker_container` ressource to use the values from `environment_variables` previously defined. As a hint use the [Kreuzwerk ressource definition](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container#env-4) as well as the [Dynamic Blocks](https://opentofu.org/docs/language/expressions/dynamic-blocks/)
 
-```
-tofu validate
-```{{exec}}
-
-```
-tofu plan
-```{{exec}}
-
-```
-tofu apply
-```{{exec}}
+7. Run `tofu init`, `tofu fmt -recursive`, `tofu validate` and `tofu apply` to provision both containers with the dependency relationship.
+8. (Optional) Inspect the successfull container configuration with:
+   - `docker inspect my-mysql` for the database
+   - `docker inspect my-nginx` for the webservice
+9. Clean up after reviewing with `tofu destroy`
 
 
+## Afterword:
+By creating multiple modules that can communicate through outputs and inputs, you can build complex, interconnected infrastructure. The database container ID is automatically passed to the nginx container as an environment variable, demonstrating how modules can share information and create dependencies.
+
+📝 **Key Concepts:** 
+- **Module Dependencies**: The nginx module depends on the database module, ensuring the database is created first
+- **Output/Input Flow**: Database container ID flows from database module → root module → nginx module
+- **Environment Variables**: Dynamic configuration passed to containers at runtime
+- **Sensitive Data**: Database passwords are marked as sensitive for security
