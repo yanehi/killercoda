@@ -12,7 +12,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.6.2"
+      version = "3.0.2"
     }
   }
 }
@@ -100,7 +100,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.6.2"
+      version = "3.0.2"
     }
   }
 }
@@ -122,9 +122,9 @@ resource "docker_container" "nginx_container" {
 
   # Nginx environment variables
   env = [
-    "DB_HOST=${var.db_container_id}",
-    "DB_PORT=${var.db_port}",
+    "DB_CONTAINER_ID=${var.db_container_id}",
     "DB_HOST=${var.db_host}",
+    "DB_PORT=${var.db_port}",
     "DB_PASSWORD=${var.db_password}"
   ]
 }
@@ -185,7 +185,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.6.2"
+      version = "3.0.2"
     }
   }
 }

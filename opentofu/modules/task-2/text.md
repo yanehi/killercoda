@@ -44,7 +44,7 @@ modules/
    - **container_id** - the ID of the database container
    - **container_name** - the name of the database container
    - **db_port** - the port exposed by the database
-   - **db_password** - the port exposed by the database
+   - **db_password** - the password of the database
 
 5. In the `modules/nginx_container/variables.tf`, expand the input parameters:
    - **db_container_id** - the container id of the database
@@ -52,7 +52,7 @@ modules/
    - **db_port** - the port on which the database can be accessed
    - **db_password** the password of the database to connect to (mark as sensitive)
 
-6. In `modules/nginx_container/main.tf`, expand the `docker_container` ressource to use the values from `environment_variables` previously defined. As a hint use the [Kreuzwerk ressource definition](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container#env-4) as well as the [Dynamic Blocks](https://opentofu.org/docs/language/expressions/dynamic-blocks/)
+6. In `modules/nginx_container/main.tf`, expand the `docker_container` resource to use the database connection values as environment variables. Use the [Kreuzwerk resource definition](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container#env-4) for the `env` parameter. You can either use a simple list of environment variables that are handed over one by one to the container or explore [Dynamic Blocks](https://opentofu.org/docs/language/expressions/dynamic-blocks/) for more complex scenarios.
 
 7. Run `tofu init`, `tofu fmt -recursive`, `tofu validate` and `tofu apply` to provision both containers with the dependency relationship.
 8. (Optional) Inspect the successfull container configuration with:
@@ -61,7 +61,7 @@ modules/
 9. Clean up after reviewing with `tofu destroy`
 
 
-## Afterword:
+## Afterword
 By creating multiple modules that can communicate through outputs and inputs, you can build complex, interconnected infrastructure. The database container ID is automatically passed to the nginx container as an environment variable, demonstrating how modules can share information and create dependencies.
 
 📝 **Key Concepts:** 

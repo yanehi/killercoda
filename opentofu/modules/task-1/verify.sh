@@ -70,3 +70,5 @@ module "nginx_latest" {
   container_name = "my-nginx"
 }
 EOF
+
+echo "Solution-3 structure created successfully!"
