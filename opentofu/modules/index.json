@@ -2,13 +2,39 @@
   "title": "Terraform/OpenTofu Modules and Environment Handling",
   "description": "Learn to structure Terraform/OpenTofu code with modules and manage multiple environments using the kreuzwerker/docker provider.",
   "difficulty": "intermediate",
-  "intro": "intro.md",
-  "finish": "finish.md",
   "details": {
+    "intro": {
+      "text": "intro.md",
+      "foreground": "startup.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    },
     "steps": [
-      { "title": "Introduction to Modules and Folder Structure", "text": "task-1/text.md" },
-      { "title": "Multi-module creation and handling", "text": "task-2/text.md" },
-      { "title": "Using Module Registry and versions", "text": "task-3/text.md" }
+      {
+        "title": "Task 1: Modules and folder structure",
+        "text": "task-1/text.md",
+        "background": "task-1/background.sh",
+        "verify": "task-1/verify.sh"
+      },
+      {
+        "title": "Task 2: Multi-module creation and handling",
+        "text": "task-2/text.md",
+        "background": "task-2/background.sh",
+        "verify": "task-2/verify.sh"
+      },
+      {
+        "title": "Task 3: Using Module Registry and versioning",
+        "text": "task-3/text.md",
+        "background": "task-3/background.sh",
+        "verify": "task-3/verify.sh"
+      }
     ]
+  },
+  "backend": {
+    "imageid": "kubernetes-kubeadm-1node"
+  },
+  "interface": {
+    "layout": "ide"
   }
 } 

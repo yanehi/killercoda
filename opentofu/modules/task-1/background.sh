@@ -15,3 +15,5 @@ provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
 EOF
+
+echo "Task-1 structure created successfully!" 

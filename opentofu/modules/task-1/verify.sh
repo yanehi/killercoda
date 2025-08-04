@@ -71,4 +71,4 @@ module "nginx_latest" {
 }
 EOF
 
-echo "Solution-3 structure created successfully!"
+echo "Solution-1 structure created successfully!"

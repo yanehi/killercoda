@@ -44,3 +44,5 @@ module "nginx_latest" {
   db_password     = module.database.db_password
 }
 EOF
+
+echo "Task-2 structure created successfully!"
