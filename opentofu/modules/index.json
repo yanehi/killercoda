@@ -1,6 +1,6 @@
 {
-  "title": "Terraform/OpenTofu Modules and Environment Handling",
-  "description": "Learn to structure Terraform/OpenTofu code with modules and manage multiple environments using the kreuzwerker/docker provider.",
+  "title": "OpenTofu Modules",
+  "description": "Learn to structure code with modules and manage multiple environments using the kreuzwerker/docker provider.",
   "difficulty": "intermediate",
   "details": {
     "intro": {
