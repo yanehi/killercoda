@@ -40,22 +40,6 @@ resource "aws_instance" "web_server_staging" {
   }
 }
 
-# RDS instance for a production database
-resource "aws_db_instance" "production_db" {
-  identifier        = "production-db"
-  engine            = "mysql"
-  instance_class    = "db.t3.micro"
-  allocated_storage = 20
-  db_name           = "production_db"
-  username          = "admin"
-  password          = "SecurePassword123!"
-
-  tags = {
-    Name        = "production-db"
-    Environment = "production"
-  }
-}
-
 # RDS instance for staging database
 resource "aws_db_instance" "staging_db" {
   identifier        = "staging-db"
