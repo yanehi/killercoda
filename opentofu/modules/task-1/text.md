@@ -12,10 +12,6 @@ my_module/
 - **variables.tf**: Represents the input parameters that let you customize how the module works each time you use it.
 - **outputs.tf**: Information the module gives back after it runs, which you can use elsewhere in your configuration.
 
-
-
-
-
 ## Task
 Create a reusable module for a nginx container that includes a Docker image and container resources. 
 1. Start by creating the following folder structure:
