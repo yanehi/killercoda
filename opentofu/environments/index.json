@@ -1,6 +1,6 @@
 {
   "title": "Multi-Environment Handling with OpenTofu",
-  "description": "Learn to manage multiple environments (development, staging, production) using OpenTofu modules and workspaces.",
+  "description": "Learn two different approaches for managing multiple environments (development, production) using OpenTofu variables and locals.",
   "difficulty": "intermediate",
   "details": {
     "intro": {
@@ -11,16 +11,12 @@
     },
     "steps": [
       {
-        "title": "Environment-specific configurations",
-        "text": "task-3/text.md"
+        "title": "Central Approach",
+        "text": "task-1/text.md"
       },
       {
-        "title": "Workspace management",
-        "text": "task-4/text.md"
-      },
-      {
-        "title": "Environment variables and secrets",
-        "text": "task-5/text.md"
+        "title": "Distributed Approach",
+        "text": "task-2/text.md"
       }
     ]
   },
@@ -30,4 +26,4 @@
   "interface": {
     "layout": "ide"
   }
-} 
+}

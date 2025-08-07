@@ -21,19 +21,6 @@ EOF
 
 # Create variables.tf file
 cat <<'EOF' > ~/environments/task-1/solution-1/variables.tf
-# Feature flags for enabling/disabling components
-variable "enable_database" {
-  description = "Flag to enable/disable database component"
-  type        = bool
-  default     = true
-}
-
-variable "enable_webserver" {
-  description = "Flag to enable/disable webserver component"
-  type        = bool
-  default     = true
-}
-
 # Environment variable
 variable "environment" {
   description = "Environment name (dev, prod, staging, etc.)"
@@ -131,12 +118,11 @@ resource "docker_image" "database_image" {
   keep_locally = true  # Verhindert das Löschen des Images beim destroy
 }
 
-# Create a docker image for a ngnix container
+# Create a docker image for nginx container
 resource "docker_image" "nginx_image" {
   name         = var.image_name
   keep_locally = true  # Verhindert das Löschen des Images beim destroy
 }
-
 
 # Create a docker container hosting database
 resource "docker_container" "database_container" {
@@ -180,7 +166,7 @@ resource "docker_container" "database_container" {
   }
 }
 
-# Create a docker container hosting the web server
+# Create nginx container for web server
 resource "docker_container" "nginx_container" {
   name  = var.web_container_name
   image = docker_image.nginx_image.image_id
@@ -198,16 +184,9 @@ resource "docker_container" "nginx_container" {
     name = docker_network.app_network.name
   }
 
-  # Environment variables for database connection
-  env = [
-    "DB_HOST=${docker_container.database_container.name}",
-    "DB_NAME=${var.db_name}",
-    "DB_USER=${var.db_user}",
-    "ENVIRONMENT=${var.environment}"
-  ]
-
-  # Custom HTML page with application information
+  # Upload custom index.html from template
   upload {
+    file = "/usr/share/nginx/html/index.html"
     content = templatefile("${path.root}/index.html.tpl", {
       db_host       = docker_container.database_container.name
       db_name       = var.db_name
@@ -217,308 +196,228 @@ resource "docker_container" "nginx_container" {
       environment   = var.environment
       app_url       = var.app_url
     })
-    file = "/usr/share/nginx/html/index.html"
   }
 
-  # Health check for web server
-  healthcheck {
-    test         = ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
-    interval     = "30s"
-    timeout      = "10s"
-    retries      = 3
-    start_period = "30s"
-  }
-
-  # Ensure database is ready before starting web server
   depends_on = [docker_container.database_container]
 }
-EOF
 
-# Create output.tf file
-cat <<'EOF' > ~/environments/task-1/solution-1/output.tf
-# Output important information
-output "application_url" {
-  description = "URL to access the web application"
-  value       = "http://localhost:${docker_container.nginx_container.ports[0].external}"
+# Step 4: Conditional Resource Creation
+# Debug container for development (Redis for caching/sessions)
+resource "docker_image" "redis_image" {
+  count = var.environment == 'dev' ? 1 : 0
+  name  = "redis:alpine"
+  keep_locally = true
 }
 
-output "database_connection" {
-  description = "Database connection information"
-  value = {
-    host     = docker_container.database_container.name
-    port     = docker_container.database_container.ports[0].external
-    database = join("", [for env in docker_container.database_container.env : trimprefix(env, "MYSQL_DATABASE=") if can(regex("^MYSQL_DATABASE=", env))])
-    user     = join("", [for env in docker_container.database_container.env : trimprefix(env, "MYSQL_USER=") if can(regex("^MYSQL_USER=", env))])
+resource "docker_container" "debug_container" {
+  count = var.environment == 'dev' ? 1 : 0
+  name  = "${var.environment}-debug-redis"
+  image = docker_image.redis_image[0].image_id
+
+  ports {
+    internal = 6379
+    external = 6379
   }
-  sensitive = false
-}
 
-output "network_info" {
-  description = "Network configuration"
-  value = {
-    network_name = docker_network.app_network.name
-    subnet       = docker_network.app_network.ipam_config[0].subnet
+  networks_advanced {
+    name = docker_network.app_network.name
   }
+
+  restart = "unless-stopped"
 }
 
-output "containers" {
-  description = "Container information"
-  value = {
-    database = {
-      name = docker_container.database_container.name
-      ip   = docker_container.database_container.network_data[0].ip_address
-    }
-    webserver = {
-      name = docker_container.nginx_container.name
-      ip   = docker_container.nginx_container.network_data[0].ip_address
-    }
+# Backup container for production
+resource "docker_image" "backup_image" {
+  count = var.environment == 'prod' ? 1 : 0
+  name  = "mysql:8.0"
+  keep_locally = true
+}
+
+resource "docker_container" "backup_container" {
+  count = var.environment == 'prod' ? 1 : 0
+  name  = "${var.environment}-backup-service"
+  image = docker_image.backup_image[0].image_id
+
+  command = [
+    "sh", "-c",
+    "while true; do echo 'Running backup at $(date)'; sleep 3600; done"
+  ]
+
+  networks_advanced {
+    name = docker_network.app_network.name
   }
+
+  restart = "unless-stopped"
 }
 EOF
 
-# Create dev.tfvars file
-cat <<'EOF' > ~/environments/task-1/solution-1/env/dev.tfvars
-# Development environment configuration
-environment = "dev"
-app_url = "http://localhost:8080"
-
-# Database variables
-db_name = "webapp_db"
-db_user = "webapp_user"
-db_password = "secure_password_123"
-db_port = 3306
-container_name = "webapp-database"
-
-# Web server variables
-image_name = "nginx:alpine"
-web_container_name = "webapp-nginx"
-web_external_port = 8080
-
-# Network variables
-network_name = "webapp-network"
-network_subnet = "172.20.0.0/16"
-EOF
-
-# Create prod.tfvars file
-cat <<'EOF' > ~/environments/task-1/solution-1/env/prod.tfvars
-# Production environment configuration
-environment = "prod"
-app_url = "http://localhost:80"
-
-# Database variables
-db_name = "webapp_db"
-db_user = "webapp_user"
-db_password = "secure_password_123"
-db_port = 3306
-container_name = "webapp-database-prod"
-
-# Web server variables
-image_name = "nginx:alpine"
-web_container_name = "webapp-nginx-prod"
-web_external_port = 80
-
-# Network variables
-network_name = "webapp-network-prod"
-network_subnet = "172.21.0.0/16"
-EOF
-
-# Create index.html.tpl file
+# Create index.html.tpl template
 cat <<'EOF' > ~/environments/task-1/solution-1/index.html.tpl
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terraform Web Application Stack - ${upper(environment)} Environment</title>
+    <title>Web Application - ${environment} Environment</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 900px;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background-color: #f4f4f4;
         }
         .container {
             background-color: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #2c3e50;
+            color: #333;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
         }
         .info-box {
-            background: linear-gradient(45deg, #e8f4fd, #f0f8ff);
-            padding: 20px;
-            border-left: 5px solid #3498db;
-            margin: 25px 0;
-            border-radius: 5px;
-        }
-        .status-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .status {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            background-color: #f8f9fa;
+            background-color: #e7f3ff;
+            border: 1px solid #bee5ff;
+            padding: 15px;
+            margin: 10px 0;
             border-radius: 5px;
         }
         .success {
-            color: #27ae60;
-            font-weight: bold;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
         }
-        .highlight {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .architecture {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin: 20px 0;
         }
-        .component {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: white;
-            border-radius: 5px;
-            border-left: 4px solid #3498db;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
         }
-        .icon {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 8px 0;
-            padding: 5px 0;
-        }
-        .endpoint {
-            background-color: #ecf0f1;
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin: 5px 0;
-            font-family: monospace;
-        }
-        .endpoint a {
-            color: #2980b9;
-            text-decoration: none;
-        }
-        .endpoint a:hover {
-            text-decoration: underline;
+        th {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🚀 Terraform Web Application Stack - ${upper(environment)} Environment</h1>
+        <h1>Web Application - ${environment} Environment</h1>
+
+        <div class="info-box success">
+            <strong>��� Application Successfully Deployed</strong><br>
+            Your OpenTofu/Terraform configuration has been successfully applied!
+        </div>
+
+        <h2>Environment Information</h2>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Environment</td>
+                <td>${environment}</td>
+            </tr>
+            <tr>
+                <td>Application URL</td>
+                <td><a href="${app_url}" target="_blank">${app_url}</a></td>
+            </tr>
+            <tr>
+                <td>External Port</td>
+                <td>${external_port}</td>
+            </tr>
+        </table>
+
+        <h2>Infrastructure Details</h2>
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Database Host</td>
+                <td>${db_host}</td>
+            </tr>
+            <tr>
+                <td>Database Name</td>
+                <td>${db_name}</td>
+            </tr>
+            <tr>
+                <td>Database Port</td>
+                <td>${db_port}</td>
+            </tr>
+            <tr>
+                <td>Network Name</td>
+                <td>${network_name}</td>
+            </tr>
+        </table>
 
         <div class="info-box">
-            <h3>📊 Application Status</h3>
-            <div class="status-grid">
-                <div class="status">
-                    <span>🌐 Web Server:</span>
-                    <span class="success">✅ Running</span>
-                </div>
-                <div class="status">
-                    <span>🗄️ Database Host:</span>
-                    <span class="highlight">${db_host}</span>
-                </div>
-                <div class="status">
-                    <span>🔗 Network:</span>
-                    <span class="success">✅ ${network_name}</span>
-                </div>
-                <div class="status">
-                    <span>📡 External Port:</span>
-                    <span class="highlight">${external_port}</span>
-                </div>
-                <div class="status">
-                    <span>🏷️ Environment:</span>
-                    <span class="highlight">${upper(environment)}</span>
-                </div>
-                <div class="status">
-                    <span>🔗 Application URL:</span>
-                    <span class="highlight"><a href="${app_url}" target="_blank">${app_url}</a></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="architecture">
-            <h3>🏗️ Architecture Components</h3>
-            <div class="component">
-                <div class="icon">🌐</div>
-                <div>
-                    <strong>Docker Network:</strong> Custom bridge network (${network_name})
-                    <br><small>Enables secure communication between containers</small>
-                </div>
-            </div>
-            <div class="component">
-                <div class="icon">🗄️</div>
-                <div>
-                    <strong>MySQL Database:</strong> Version 8.0 with persistent storage
-                    <br><small>Host: ${db_host} | Port: ${db_port} | Database: ${db_name}</small>
-                </div>
-            </div>
-            <div class="component">
-                <div class="icon">🖥️</div>
-                <div>
-                    <strong>Nginx Webserver:</strong> Alpine Linux based container
-                    <br><small>Running on port 80 (internal) and ${external_port} (external)</small>
-                </div>
-            </div>
-        </div>
-
-        <h3>🔗 Available Endpoints</h3>
-        <div class="endpoint">
-            <a href="/">GET /</a> - This main page
-        </div>
-        <div class="endpoint">
-            <a href="/health" target="_blank">GET /health</a> - Health Check (would return 404, not configured)
-        </div>
-
-        <div class="info-box">
-            <h4>💡 Terraform/OpenTofu Learning Objectives</h4>
-            <ul>
-                <li>✅ <strong>Resource Management:</strong> Docker Images and Containers</li>
-                <li>✅ <strong>Network Configuration:</strong> Custom Docker Networks</li>
-                <li>✅ <strong>Service Dependencies:</strong> Web server waits for database</li>
-                <li>✅ <strong>Variable Usage:</strong> Parameterized configuration</li>
-                <li>✅ <strong>Outputs:</strong> Important information for further use</li>
-                <li>✅ <strong>Health Checks:</strong> Container health monitoring</li>
-                <li>✅ <strong>Volume Mounting:</strong> Persistent data storage</li>
-                <li>✅ <strong>Environment Management:</strong> Multi-environment support</li>
-            </ul>
-        </div>
-
-        <div class="info-box">
-            <p><strong>🎯 Note:</strong> This application demonstrates a complete Terraform configuration
-            for a multi-container application. The containers are connected via a custom network
-            and can communicate with each other.</p>
-
-            <p><strong>🚀 Deployment:</strong> Use <code>tofu init</code>, <code>tofu plan</code> and
-            <code>tofu apply -var-file="env/${environment}.tfvars"</code> to deploy this infrastructure.</p>
-
-            <p><strong>🔧 Environment:</strong> Currently running in <strong>${upper(environment)}</strong> mode
-            at <a href="${app_url}" class="highlight">${app_url}</a>.
-            Switch environments by using different .tfvars files.</p>
+            <strong>Note:</strong> This is a demonstration application created with OpenTofu/Terraform.
+            The database and web server are running in Docker containers and connected via a custom network.
         </div>
     </div>
 </body>
 </html>
+EOF
+
+# Create dev.tfvars file
+cat <<'EOF' > ~/environments/task-1/solution-1/env/dev.tfvars
+# Environment configuration
+environment = "dev"
+app_url     = "http://localhost:8080"
+
+# Database configuration
+db_name        = "webapp_db_dev"
+db_user        = "webapp_user_dev"
+db_password    = "secure_password_123"
+db_port        = 3306
+container_name = "webapp-database-dev"
+
+# Web server configuration
+image_name         = "nginx:alpine"
+web_container_name = "webapp-nginx-dev"
+web_external_port  = 8080
+
+# Network configuration
+network_name   = "webapp-network-dev"
+network_subnet = "172.20.0.0/16"
+
+# Step 4: Conditional resources
+enable_debug_container  = true
+enable_backup_container = false
+EOF
+
+# Create prod.tfvars file
+cat <<'EOF' > ~/environments/task-1/solution-1/env/prod.tfvars
+# Environment configuration
+environment = "prod"
+app_url     = "http://localhost:80"
+
+# Database configuration
+db_name        = "webapp_db_prod"
+db_user        = "webapp_user_prod"
+db_password    = "zP8~99^1W7zA"
+db_port        = 3307
+container_name = "webapp-database-prod"
+
+# Web server configuration
+image_name         = "nginx:latest"
+web_container_name = "webapp-nginx-prod"
+web_external_port  = 80
+
+# Network configuration
+network_name   = "webapp-network-prod"
+network_subnet = "172.21.0.0/16"
+
+# Step 4: Conditional resources
+enable_debug_container  = false
+enable_backup_container = true
 EOF
 
 echo "Solution-1 directory structure created successfully!"
