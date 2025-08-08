@@ -1,18 +1,15 @@
 #!/bin/bash
 
-
-# Create directory structure in current directory
-mkdir -p ./solution-2/modules/nginx_container
-mkdir -p ./solution-2/modules/database_container
-
+# Create the solution directory structure
+mkdir -p solution-2/modules/{nginx_container,database_container}
 
 # Create provider.tf file
-cat <<'EOF' > ./solution-2/provider.tf
+cat <<'EOF' > ~/modules/solution-2/provider.tf
 terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "3.6.2"
     }
   }
 }
@@ -23,7 +20,7 @@ provider "docker" {
 EOF
 
 # Create the root main.tf
-cat <<'EOF' > ./solution-2/main.tf
+cat <<'EOF' > ~/modules/solution-2/main.tf
 # Root module configuration for Task 2
 # This uses both nginx and database modules with container ID dependency
 
@@ -53,7 +50,7 @@ EOF
 
 
 # Create variables.tf for the nginx module
-cat <<'EOF' > ./solution-2/modules/nginx_container/variables.tf
+cat <<'EOF' > ~/modules/solution-2/modules/nginx_container/variables.tf
 variable "image_name" {
   description = "Name of the Docker image"
   type        = string
@@ -95,12 +92,12 @@ variable "db_password" {
 EOF
 
 # Create main.tf for the nginx module
-cat <<'EOF' > ./solution-2/modules/nginx_container/main.tf
+cat <<'EOF' > ~/modules/solution-2/modules/nginx_container/main.tf
 terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "3.6.2"
     }
   }
 }
@@ -131,7 +128,7 @@ resource "docker_container" "nginx_container" {
 EOF
 
 # Create outputs.tf for the nginx module
-cat <<'EOF' > ./solution-2/modules/nginx_container/outputs.tf
+cat <<'EOF' > ~/modules/solution-2/modules/nginx_container/outputs.tf
 output "container_id" {
   description = "ID of the nginx container"
   value       = docker_container.nginx_container.id
@@ -139,7 +136,7 @@ output "container_id" {
 EOF
 
 # Create variables.tf for the database module
-cat <<'EOF' > ./solution-2/modules/database_container/variables.tf
+cat <<'EOF' > ~/modules/solution-2/modules/database_container/variables.tf
 # Database container module - variables.tf
 # Input variables for the database container module
 
@@ -177,7 +174,7 @@ variable "db_port" {
 EOF
 
 # Create main.tf for the database module
-cat <<'EOF' > ./solution-2/modules/database_container/main.tf
+cat <<'EOF' > ~/modules/solution-2/modules/database_container/main.tf
 # Database container module - main.tf
 # Defines MySQL container with environment configuration
 
@@ -185,7 +182,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "3.6.2"
     }
   }
 }
@@ -226,7 +223,7 @@ resource "docker_container" "database_container" {
 EOF
 
 # Create outputs.tf for the database module
-cat <<'EOF' > ./solution-2/modules/database_container/outputs.tf
+cat <<'EOF' > ~/modules/solution-2/modules/database_container/outputs.tf
 # Database container module - outputs.tf
 # Output values from the database container module
 

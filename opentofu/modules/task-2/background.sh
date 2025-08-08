@@ -45,4 +45,62 @@ module "nginx_latest" {
 }
 EOF
 
+# Create index.html for the nginx container
+cat <<'EOF' > ~/modules/task-2/modules/nginx_container/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Custom Nginx Module</title>
+</head>
+<body>
+    <h1>Congratulations! You have successfully created your first Tofu module!</h1>
+    <p>This custom page is served by your nginx container module.</p>
+</body>
+</html>
+EOF
+
+# Create variables.tf for the module
+cat <<'EOF' > ~/modules/task-2/modules/nginx_container/variables.tf
+variable "image_name" {
+  description = "Name of the Docker image"
+  type        = string
+}
+
+variable "container_name" {
+  description = "Name of the Docker container"
+  type        = string
+}
+EOF
+
+# Create main.tf for the module
+cat <<'EOF' > ~/modules/task-2/modules/nginx_container/main.tf
+terraform {
+  required_providers {
+    docker = {
+      source = "kreuzwerker/docker"
+    }
+  }
+}
+
+resource "docker_image" "nginx_image" {
+  name = var.image_name
+}
+
+resource "docker_container" "nginx_container" {
+  name  = var.container_name
+  image = docker_image.nginx_image.image_id
+
+  ports {
+    internal = 80
+    external = 80
+  }
+
+  # Referenzierung der index.html aus dem aktuellen Modul-Verzeichnis
+  upload {
+    content = file("${path.module}/index.html") # Pfad zum aktuellen Modul-Verzeichnis
+    file    = "/usr/share/nginx/html/index.html"
+  }
+}
+EOF
+
 echo "Task-2 structure created successfully!"
