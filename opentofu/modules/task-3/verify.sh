@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Create directory structure in current directory
-mkdir -p ./solution-3/modules/database_container
-
 # Create main.tf for the database module
-cat <<'EOF' > ./solution-3/modules/database_container/main.tf
+cat <<'EOF' > ~/solution-3/modules/database_container/main.tf
 # Database container module - main.tf
 # Defines MySQL container with environment configuration
 
@@ -53,7 +50,7 @@ resource "docker_container" "database_container" {
 EOF
 
 # Create variables.tf for the database module
-cat <<'EOF' > ./solution-3/modules/database_container/variables.tf
+cat <<'EOF' > ~/solution-3/modules/database_container/variables.tf
 # Database container module - variables.tf
 # Input variables for the database container module
 
@@ -91,7 +88,7 @@ variable "db_port" {
 EOF
 
 # Create outputs.tf for the database module
-cat <<'EOF' > ./solution-3/modules/database_container/outputs.tf
+cat <<'EOF' > ~/solution-3/modules/database_container/outputs.tf
 # Database container module - outputs.tf
 # Output values from the database container module
 
@@ -117,7 +114,7 @@ output "db_password" {
 EOF
 
 # Create provider.tf file
-cat <<'EOF' > ./solution-3/provider.tf
+cat <<'EOF' > ~/solution-3/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -133,7 +130,7 @@ provider "docker" {
 EOF
 
 # Create main.tf with version 4.0.0 (working version)
-cat <<'EOF' > ./solution-3/main.tf
+cat <<'EOF' > ~/solution-3/main.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -166,7 +163,7 @@ module "nginx" {
 EOF
 
 # Create main.tf with version 5.0.0 (breaking changes version)
-cat <<'EOF' > ./solution-3/main_v5.tf
+cat <<'EOF' > ~/solution-3/main_v5.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -200,7 +197,7 @@ module "nginx_v5" {
 EOF
 
 # Create main.tf with version 6.0.0 (new html content version)
-cat <<'EOF' > ./solution-3/main_v6.tf
+cat <<'EOF' > ~/solution-3/main_v6.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -233,7 +230,7 @@ module "nginx_v6" {
 EOF
 
 # Create a README file explaining the differences
-cat <<'EOF' > ./solution-3/README.md
+cat <<'EOF' > ~/solution-3/README.md
 # Task 3 Solution
 
 ## Version 4.0.0 (Working)

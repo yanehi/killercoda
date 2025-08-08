@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Create directory structure in current directory
-mkdir -p modules/database_container
-
 # Create provider.tf file
-cat <<'EOF' > provider.tf
+cat <<'EOF' > ~/modules/task-3/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -20,7 +17,7 @@ provider "docker" {
 EOF
 
 # Create a main.tf with TODO structure
-cat <<'EOF' > main.tf
+cat <<'EOF' > ~/modules/task-3/main.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -46,7 +43,7 @@ module "nginx" {
 EOF
 
 # Create main.tf for the database module
-cat <<'EOF' > modules/database_container/main.tf
+cat <<'EOF' > ~/modules/task-3/modules/database_container/main.tf
 # Database container module - main.tf
 # Defines MySQL container with environment configuration
 
@@ -95,7 +92,7 @@ resource "docker_container" "database_container" {
 EOF
 
 # Create variables.tf for the database module
-cat <<'EOF' > modules/database_container/variables.tf
+cat <<'EOF' > ~/modules/task-3/modules/database_container/variables.tf
 # Database container module - variables.tf
 # Input variables for the database container module
 
@@ -133,7 +130,7 @@ variable "db_port" {
 EOF
 
 # Create outputs.tf for the database module
-cat <<'EOF' > modules/database_container/outputs.tf
+cat <<'EOF' > ~/modules/task-3/modules/database_container/outputs.tf
 # Database container module - outputs.tf
 # Output values from the database container module
 
