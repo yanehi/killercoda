@@ -12,7 +12,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "3.6.2"
     }
   }
 }
@@ -122,7 +122,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "3.6.2"
     }
   }
 }
@@ -149,21 +149,19 @@ module "database" {
 
 # Nginx module from Terraform Module Registry - Version 4.0.0
 module "nginx" {
-  source = "JamaicaBot/docker-nginx/kreuzwerker"
+  source  = "JamaicaBot/docker-ngnix/kreuzwerker"
   version = "4.0.0"
-  
+
   # Basic configuration
-  image_name = "nginx:alpine"
+  image_name     = "nginx:alpine"
   container_name = "my-nginx"
-  port = 8080
-  
+  port           = 8080
+
   # Database connection as environment variables
-  environment_variables = {
-    DB_CONTAINER_ID = module.database.container_id
-    DB_HOST = module.database.container_name
-    DB_PORT = module.database.db_port
-    DB_PASSWORD = module.database.db_password
-  }
+  db_container_id = module.database.container_id
+  db_host         = module.database.container_name
+  db_port         = module.database.db_port
+  db_password     = module.database.db_password
 }
 EOF
 
@@ -172,7 +170,7 @@ cat <<'EOF' > ./solution-3/main_v5.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
-module "database" {
+module "database_v5" {
   source         = "./modules/database_container"
   image_name     = "mysql:8.0"
   container_name = "my-mysql"
@@ -184,22 +182,53 @@ module "database" {
 
 # Nginx module from Terraform Module Registry - Version 5.0.0
 # This version has changes in variable names
-module "nginx" {
-  source = "JamaicaBot/docker-nginx/kreuzwerker"
+module "nginx_v5" {
+  source  = "JamaicaBot/docker-ngnix/kreuzwerker"
   version = "5.0.0"
-  
-  # Basic configuration (variable names changed in v5.0.0)
-  docker_image = "nginx:alpine"
-  name = "my-nginx"
-  external_port = 8080
-  
-  # Database connection as environment variables (structure changed)
-  env = [
-    "DB_CONTAINER_ID=${module.database.container_id}",
-    "DB_HOST=${module.database.container_name}",
-    "DB_PORT=${module.database.db_port}",
-    "DB_PASSWORD=${module.database.db_password}"
-  ]
+
+  # Basic configuration
+  image_name     = "nginx:alpine"
+  container_name = "my-nginx"
+  port           = 8080
+
+  # Database connection as environment variables
+  db_container_id = module.database_v5.container_id
+  db_host         = module.database_v5.container_name
+  db_port         = module.database_v5.db_port
+  db_password     = module.database_v5.db_password
+}
+EOF
+
+# Create main.tf with version 6.0.0 (new html content version)
+cat <<'EOF' > ./solution-3/main_v6.tf
+# Root module configuration for Task 3
+# This uses a database module and a module from the Terraform Registry
+
+module "database_v5" {
+  source         = "./modules/database_container"
+  image_name     = "mysql:8.0"
+  container_name = "my-mysql"
+  db_name        = "myapp"
+  db_user        = "root"
+  db_password    = "password123"
+  db_port        = 3306
+}
+
+# Nginx module from Terraform Module Registry - Version 6.0.0
+# This version has changes in variable names
+module "nginx_v6" {
+  source  = "JamaicaBot/docker-ngnix/kreuzwerker"
+  version = "6.0.0"
+
+  # Basic configuration
+  image_name     = "nginx:alpine"
+  container_name = "my-nginx"
+
+  # Database connection as environment variables
+  db_container_id = module.database_v6.container_id
+  db_host         = module.database_v6.container_name
+  db_port         = module.database_v6.db_port
+  db_password     = module.database_v6.db_password
 }
 EOF
 
@@ -216,6 +245,11 @@ cat <<'EOF' > ./solution-3/README.md
 - Uses `main_v5.tf` with version 5.0.0 of the JamaicaBot/docker-nginx module
 - Variable names changed: `docker_image`, `name`, `external_port`, `env`
 - This version demonstrates breaking changes that cause validation errors
+
+## Version 6.0.0 (Security Risk)
+- Uses `main_v6.tf` with version 6.0.0 of the JamaicaBot/docker-nginx module
+- HTML content was added to the module
+- This version demonstrates unwanted content that was included to the new version
 
 ## Key Differences
 1. **Variable Names**: The module changed its input variable names between versions

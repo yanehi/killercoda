@@ -28,6 +28,18 @@ chmod +x install-opentofu.sh
 # Remove the installer:
 rm -f install-opentofu.sh
 
+# Install Terraform
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+    gpg --dearmor | \
+    tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+    https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+    tee /etc/apt/sources.list.d/hashicorp.list
+
+apt update
+apt-get install terraform
+
 # Install Docker
 apt-get install -y docker.io
 
@@ -37,4 +49,5 @@ systemctl enable docker
 
 # Verify installations
 tofu version
+terraform version
 docker --version

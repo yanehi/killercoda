@@ -1,45 +1,15 @@
 #!/bin/bash
 
-# Install Terraform for Linux (required for Task 3)
-echo "Installing Terraform for Linux..."
-
-# Check if Terraform is already installed
-if ! command -v terraform &> /dev/null; then
-    echo "Terraform not found. Installing..."
-    
-    # Download and install Terraform
-    TERRAFORM_VERSION="1.5.7"
-    TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-    TERRAFORM_URL="https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
-    
-    # Download Terraform
-    wget -O /tmp/${TERRAFORM_ZIP} ${TERRAFORM_URL}
-    
-    # Unzip and install
-    unzip /tmp/${TERRAFORM_ZIP} -d /tmp/
-    sudo mv /tmp/terraform /usr/local/bin/
-    
-    # Clean up
-    rm /tmp/${TERRAFORM_ZIP}
-    
-    # Verify installation
-    terraform --version
-    echo "Terraform installation completed successfully!"
-else
-    echo "Terraform is already installed:"
-    terraform --version
-fi
-
 # Create directory structure in current directory
-mkdir -p ~/modules/task-3/modules/database_container
+mkdir -p modules/database_container
 
 # Create provider.tf file
-cat <<'EOF' > ~/modules/task-3/provider.tf
+cat <<'EOF' > provider.tf
 terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "3.6.2"
     }
   }
 }
@@ -50,7 +20,7 @@ provider "docker" {
 EOF
 
 # Create a main.tf with TODO structure
-cat <<'EOF' > ~/modules/task-3/main.tf
+cat <<'EOF' > main.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -68,15 +38,15 @@ module "database" {
 # Search for "JamaicaBot/docker-nginx" in the registry
 # Use version "4.0.0" initially
 # The module should use the database container information as environment variables
-# module "nginx" {
-#   source = "JamaicaBot/docker-nginx/kreuzwerker"
-#   version = "4.0.0"
-#   # Add required variables based on the module documentation
-# }
+module "nginx" {
+  source = "JamaicaBot/docker-nginx/kreuzwerker"
+  version = "4.0.0"
+  # Add required variables based on the module documentation
+}
 EOF
 
 # Create main.tf for the database module
-cat <<'EOF' > ~/modules/task-3/modules/database_container/main.tf
+cat <<'EOF' > modules/database_container/main.tf
 # Database container module - main.tf
 # Defines MySQL container with environment configuration
 
@@ -84,7 +54,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.2"
+      version = "3.6.2"
     }
   }
 }
@@ -125,7 +95,7 @@ resource "docker_container" "database_container" {
 EOF
 
 # Create variables.tf for the database module
-cat <<'EOF' > ~/modules/task-3/modules/database_container/variables.tf
+cat <<'EOF' > modules/database_container/variables.tf
 # Database container module - variables.tf
 # Input variables for the database container module
 
@@ -163,7 +133,7 @@ variable "db_port" {
 EOF
 
 # Create outputs.tf for the database module
-cat <<'EOF' > ~/modules/task-3/modules/database_container/outputs.tf
+cat <<'EOF' > modules/database_container/outputs.tf
 # Database container module - outputs.tf
 # Output values from the database container module
 
@@ -189,5 +159,3 @@ output "db_password" {
 EOF
 
 echo "Task-3 structure created successfully!"
-echo "Terraform is ready for downloading modules from the Terraform Registry"
-echo "Ready for students to complete the TODO section in main.tf"
