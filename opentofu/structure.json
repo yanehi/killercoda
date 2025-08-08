@@ -8,7 +8,7 @@
       { "path": "introduction-tofu" , "title": "1. Introduction of the basic syntax and data type of OpenTofu." },
       { "path": "resource-dependencies-lifecycle" , "title": "2. Ressource dependency and lifecycle in OpenTofu." },
       { "path": "modules" , "title": "3. Modules in OpenTofu." },
-      { "path": "environments" , "title": "4. Multi-environment handling in OpenTofu" },
+      { "path": "environments" , "title": "4. Multi-environment handling in OpenTofu." },
       { "path": "troubleshooting" , "title": "5. Find and solve common issues in OpenTofu." }
     ]
 }

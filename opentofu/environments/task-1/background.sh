@@ -109,14 +109,15 @@ resource "docker_container" "nginx_container" {
 
   # Custom HTML page with application information
   upload {
+    file = "/usr/share/nginx/html/index.html"
     content = templatefile("${path.root}/index.html.tpl", {
-      db_host        = "webapp-database-dev" # TODO: Replace with variable
-      db_name        = "webapp_db_dev" # TODO: Replace with variable
-      db_port        = 3306 # TODO: Replace with variable
-      network_name   = "webapp-network-dev" # TODO: Replace with variable
-      external_port  = 8080 # TODO: Replace with variable
-      environment    = "dev" # TODO: Replace with variable
-      app_url        = "http://localhost:8080" # TODO: Replace with variable
+      db_host       = "webapp-database-dev"   # TODO: Replace with variable
+      db_name       = "webapp_db_dev"         # TODO: Replace with variable
+      db_port       = 3306                    # TODO: Replace with variable
+      network_name  = "webapp-network-dev"    # TODO: Replace with variable
+      external_port = 8080                    # TODO: Replace with variable
+      environment   = "dev"                   # TODO: Replace with variable
+      app_url       = "http://localhost:8080" # TODO: Replace with variable
     })
     file = "/usr/share/nginx/html/index.html"
   }
@@ -335,4 +336,5 @@ cat <<'EOF' > ~/environments/task-1/index.html.tpl
 EOF
 
 echo "Task-1 successfully created"
+
 

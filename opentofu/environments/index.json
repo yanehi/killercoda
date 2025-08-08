@@ -12,13 +12,13 @@
     },
     "steps": [
       {
-        "title": "Task1: Environment handling - Central Approach",
+        "title": "Task 1: Environment handling - Central Approach",
         "text": "task-1/text.md",
         "background": "task-1/background.sh",
         "verify": "task-1/verify.sh"
       },
       {
-        "title": "Distributed Approach",
+        "title": "Task 1: Environment handling - Distributed Approach",
         "text": "task-2/text.md",
         "background": "task-2/background.sh",
         "verify": "task-2/verify.sh"
