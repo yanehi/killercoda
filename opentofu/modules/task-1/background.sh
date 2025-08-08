@@ -16,4 +16,9 @@ provider "docker" {
 }
 EOF
 
+# Create main.tf file
+cat <<'EOF' > ~/modules/task-1/main.tf
+# Add the module block in here
+EOF
+
 echo "Task-1 structure created successfully!" 

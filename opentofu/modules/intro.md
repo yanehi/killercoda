@@ -4,21 +4,22 @@ As your infrastructure grows in complexity, you'll quickly discover that writing
 
 ### The Problem: Code Duplication
 
-Let's examine a real-world scenario where you need to deploy a web application with a database:
+Let's examine the following example where two application will be deployed in AWS:
 
-<div style="display: flex; justify-content: space-between; margin: 20px 0;">
-  <img src="./assets/module_problem_duplication_1.png" alt="Module Problem Duplication 1" style="width: 48%;">
-  <img src="./assets/module_problem_duplication_2.png" alt="Module Problem Duplication 2" style="width: 48%;">
-</div>
+![Everything fine](./assets/duplication_challenge.png)
 
-In this example, we have two nearly identical configurations for different environments. Notice how:
+ We have two nearly identical configurations for different applications. Notice how:
 
-- **Red areas**: Show configuration-specific values for `aws_instance` ressources
-- **Orange areas**: Show configuration-specific values for `aws_db_instance` ressources
+- **Red areas**: Show configuration-specific values for the `aws_instance` ressource, which are different for each application
+- **Green areas**: Show the ressource-specific attributes of the `aws_instance` ressource and repeat themselves in both configurations
+
+For each new application, you would need to copy and paste the same configuration, even though only the red areas would require adjustment.
+This creates a lot of redundant code in the green areas, which increases the size of your configurations and maintenance costs when attributes are changed, even though you are only interested in the red areas.
 
 ### The Solution: Modules
 
-OpenTofu modules solve this problem by implementing the **DRY (Don't Repeat Yourself)** principle. A module is a reusable, self-contained package of OpenTofu configurations that manages a specific set of resources. Think of modules as "blueprints" for your infrastructure components.
+OpenTofu modules solve this problem by implementing the DRY (Don't Repeat Yourself) principle. A module is a reusable, self-contained package of configurations that manages a specific set of resources.
+Think of modules as 'blueprints' for your infrastructure components. They define all the necessary parts of your desired infrastructure, but use variables to leave out the specific details.
 
 **Key Benefits of Modules:**
 - **Reusability**: Define once, use everywhere
@@ -35,11 +36,6 @@ In this scenario, you'll master the following concepts:
 - **Output Management**: Sharing information between modules
 - **Module Registry**: Using pre-built modules from the community
 - **Version Control**: Managing module versions and dependencies
-
-### Real-World Impact
-
-By the end of this scenario, you'll understand how modules transform your infrastructure code from a collection of repetitive configurations into a well-organized, maintainable system. This knowledge is essential for any production OpenTofu deployment and will significantly improve your team's productivity and code quality. 
-
 
 ## Note
 
