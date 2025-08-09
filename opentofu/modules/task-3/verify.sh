@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# Create the solution directory structure
+mkdir -p ~/modules/solution-3/modules/database_container
+
 # Create main.tf for the database module
-cat <<'EOF' > ~/solution-3/modules/database_container/main.tf
+cat <<'EOF' > ~/modules/solution-3/modules/database_container/main.tf
 # Database container module - main.tf
 # Defines MySQL container with environment configuration
 
@@ -50,7 +53,7 @@ resource "docker_container" "database_container" {
 EOF
 
 # Create variables.tf for the database module
-cat <<'EOF' > ~/solution-3/modules/database_container/variables.tf
+cat <<'EOF' > ~/modules/solution-3/modules/database_container/variables.tf
 # Database container module - variables.tf
 # Input variables for the database container module
 
@@ -88,7 +91,7 @@ variable "db_port" {
 EOF
 
 # Create outputs.tf for the database module
-cat <<'EOF' > ~/solution-3/modules/database_container/outputs.tf
+cat <<'EOF' > ~/modules/solution-3/modules/database_container/outputs.tf
 # Database container module - outputs.tf
 # Output values from the database container module
 
@@ -114,7 +117,7 @@ output "db_password" {
 EOF
 
 # Create provider.tf file
-cat <<'EOF' > ~/solution-3/provider.tf
+cat <<'EOF' > ~/modules/solution-3/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -130,7 +133,7 @@ provider "docker" {
 EOF
 
 # Create main.tf with version 4.0.0 (working version)
-cat <<'EOF' > ~/solution-3/main.tf
+cat <<'EOF' > ~/modules/solution-3/main.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -163,7 +166,7 @@ module "nginx" {
 EOF
 
 # Create main.tf with version 5.0.0 (breaking changes version)
-cat <<'EOF' > ~/solution-3/main_v5.tf
+cat <<'EOF' > ~/modules/solution-3/main_v5.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -197,7 +200,7 @@ module "nginx_v5" {
 EOF
 
 # Create main.tf with version 6.0.0 (new html content version)
-cat <<'EOF' > ~/solution-3/main_v6.tf
+cat <<'EOF' > ~/modules/solution-3/main_v6.tf
 # Root module configuration for Task 3
 # This uses a database module and a module from the Terraform Registry
 
@@ -230,7 +233,7 @@ module "nginx_v6" {
 EOF
 
 # Create a README file explaining the differences
-cat <<'EOF' > ~/solution-3/README.md
+cat <<'EOF' > ~/modules/solution-3/README.md
 # Task 3 Solution
 
 ## Version 4.0.0 (Working)
@@ -239,12 +242,12 @@ cat <<'EOF' > ~/solution-3/README.md
 - This version works correctly with the provided configuration
 
 ## Version 5.0.0 (Breaking Changes)
-- Uses `main_v5.tf` with version 5.0.0 of the JamaicaBot/docker-nginx module
+- Uses `main_v5.tf` with version 5.0.0 of the JamaicaBot/docker-ngnix module
 - Variable names changed: `docker_image`, `name`, `external_port`, `env`
 - This version demonstrates breaking changes that cause validation errors
 
 ## Version 6.0.0 (Security Risk)
-- Uses `main_v6.tf` with version 6.0.0 of the JamaicaBot/docker-nginx module
+- Uses `main_v6.tf` with version 6.0.0 of the JamaicaBot/docker-ngnix module
 - HTML content was added to the module
 - This version demonstrates unwanted content that was included to the new version
 

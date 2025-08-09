@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Create the required directory structure
+mkdir -p ~/modules/task-3/modules/database_container
+
 # Create provider.tf file
 cat <<'EOF' > ~/modules/task-3/provider.tf
 terraform {
