@@ -1,21 +1,23 @@
-# Introduction to Terraform/OpenTofu with Docker
+# Introduction to OpenTofu
 
-Welcome to this hands-on scenario! Over the course of this introduction scenario you will learn the basic concepts of the Infrastructure as Code (IaC) tool Terraform/OpenTofu, hereby learning the fundamentals to
- - define your infrastructure in a describtive way, 
- - establish processes to initializes project ressouces with the defined scripts and
- - managing the lifecycle (like creating, updating or deleting) infrastructure ressources 
+Welcome to the OpenTofu Lifecycle scenario! Throughout this introductory scenario, you will learn the first steps with the Infrastructure as Code (IaC) tool OpenTofu. 
+OpenTofu is a fork of Terraform that is being further developed by the OpenTofu community after HashiCorp changed Terraform's license from open-source to BUSL (Business Source License).
 
-## Learning Objectives
-- Understand Terraform/OpenTofu syntax and configuration files
-- Work with providers, using the the Docker provider from Kreuzwert as an example
-- Manage Docker resources using code
-- Use essential Terraform commands and manipulate state
-- Apply best practices for IaC
+In this scenario, you will learn the fundamentals to:
+ - Define your infrastructure descriptively using OpenTofu's most important components
+ - Establish processes to initialize project resources with the defined scripts
+ - Manage the lifecycle (such as creating, updating, or deleting) of infrastructure resources
 
 ## Prerequisites
 - Basic command-line knowledge
 - Familiarity with Docker concepts (containers, images)
-- No prior Terraform experience required
 
-## Scenario Overview
-You will complete a series of tasks, each building on the previous, to gain practical experience with Terraform/OpenTofu and Docker. Please note that Docker Providers was chosen as the basis for this learning material because the variety of resources is limited and the configuration options are therefore less complex than those offered by cloud providers or similar providers. However, the knowledge gained can also be applied to all other providers.
+> [!IMPORTANT]  
+> Although OpenTofu and HashiCorp's Terraform are now separate projects, OpenTofu's syntax and functionality are identical to Terraform in many aspects. 
+> Therefore, you can use most tutorials, documentation, and concepts for Terraform with OpenTofu and vice versa.
+
+## Install Terraform Plugin for syntax highlighting
+
+![Everything fine](./assets/terraform_plugin.png)
+
+> **_CAUTION:_** Please wait until the environment is fully prepared before starting the exercise (`Start` button). You can monitor the preparation status in the terminal on the right side.

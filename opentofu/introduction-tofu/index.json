@@ -1,6 +1,6 @@
 {
-  "title": "Introduction to Terraform/OpenTofu with Docker",
-  "description": "Learn the basics of Infrastructure as Code using Terraform/OpenTofu and the kreuzwerker/docker provider.",
+  "title": "Introduction to the Terraform/OpenTofu Lifecycle",
+  "description": "Learn the lifecycle of infrastructure provisioning using Terraform/OpenTofu.",
   "difficulty": "beginner",
   "details": {
     "intro": {
@@ -12,40 +12,20 @@
     },
     "steps": [
       {
-        "title": "Providers and Provider Syntax",
-        "text": "task-1/text.md",
-        "background": "task-1/background.sh",
-        "verify": "task-1/verify.sh"
+        "title": "OpenTofu installation and setup",
+        "text": "task-1/installation.md",
+        "verify": "task-1/verify_installation.sh"
       },
       {
-        "title": "Managing Resources",
-        "text": "task-2/text.md",
-        "background": "task-2/background.sh",
-        "verify": "task-2/verify.sh"
+        "title": "OpenTofu Lifecycle Initialization",
+        "text": "task-2/initialization.md",
+        "background": "task-2/background_initialization.sh",
+        "verify": "task-2/verify_initialization.sh"
       },
       {
-        "title": "Variables, Locals, and Outputs",
-        "text": "task-3/text.md",
-        "background": "task-3/background.sh",
-        "verify": "task-3/verify.sh"
-      },
-      {
-        "title": "Understanding the Terraform/OpenTofu Lifecycle",
-        "text": "task-4/text.md",
-        "background": "task-4/background.sh",
-        "verify": "task-4/verify.sh"
-      },
-      {
-        "title": "State Manipulation and Useful Commands",
-        "text": "task-5/text.md",
-        "background": "task-5/background.sh",
-        "verify": "task-5/verify.sh"
-      },
-      {
-        "title": "Refactoring Best Practices",
-        "text": "task-6/text.md",
-        "background": "task-6/background.sh",
-        "verify": "task-6/verify.sh"
+        "title": "OpenTofu Lifecycle Planning",
+        "text": "task-3/planing.md",
+        "verify": "task-3/verify_planing.sh"
       }
     ]
   },
