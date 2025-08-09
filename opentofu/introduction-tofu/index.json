@@ -26,6 +26,20 @@
         "title": "OpenTofu Lifecycle Planning",
         "text": "task-3/planing.md",
         "verify": "task-3/verify_planing.sh"
+      },
+      {
+        "title": "OpenTofu Lifecycle Apply",
+        "text": "task-4/apply.md",
+        "verify": "task-4/verify_apply.sh"
+      },
+      {
+        "title": "OpenTofu Lifecycle Adding Resources",
+        "text": "task-5/changes.md"
+      },
+      {
+        "title": "OpenTofu Lifecycle Destroy",
+        "text": "task-6/destory.md",
+        "verify": "task-6/verify_destroy.sh"
       }
     ]
   },

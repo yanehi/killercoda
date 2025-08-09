@@ -16,11 +16,11 @@ the output only contains one resource that will be added. The Docker container r
 the defined ports `80` and the html content. The remaining attributes are the default values for the Docker container resource.
 3. Please safe the plan to a file for later review. Use the `-out` option to save it:
    ```shell
-   tofu plan -out=tfplan
+   tofu plan -out=plan.tfplan
    ```{{exec}}
-   This command will create a file named `tfplan` that contains the planned actions. Should you change your configuration further, but still want to apply the same plan, you can use this file later.
-4. To review the `tfplan` at a later time, the following command can be used:
+   This command will create a file named `plan.tfplan` that contains the planned actions. Should you change your configuration further, but still want to apply the same plan, you can use this file later.
+4. To review the `plan.tfplan` at a later time, the following command can be used:
    ```shell
-   tofu show tfplan
+   tofu show plan.tfplan
    ```{{exec}}
-   This command will display the changes described in the `tfplan` file, showing the Docker container configuration as specified in your configuration.
+   This command will display the changes described in the `plan.tfplan` file, showing the Docker container configuration as specified in your configuration.

@@ -1,10 +1,3 @@
-#!/bin/bash
-
-# Create the directory structure if it doesn't exist
-mkdir -p ~/introduction-tofu/lifecycle-management
-
-# Create main.tf for the module
-cat <<'EOF' > ~/introduction-tofu/lifecycle-management/main.tf
 terraform {
   required_providers {
     docker = {
@@ -15,8 +8,8 @@ terraform {
 }
 
 resource "docker_container" "web_server" {
-  name  = "web-server"
-  image = "docker.io/library/nginx:latest"
+  name     = "web-server"
+  image    = "docker.io/library/nginx:latest"
   pid_mode = "private"
 
   ports {
@@ -41,11 +34,9 @@ resource "docker_container" "web_server" {
     file    = "/usr/share/nginx/html/index.html"
   }
 
-  # Required to prevent recreation of the container on every plan/apply
   lifecycle {
     ignore_changes = [
       ulimit
     ]
   }
 }
-EOF
