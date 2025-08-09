@@ -1,18 +1,9 @@
-# Congratulations!
+# Summary
 
-You have completed the Introduction to Terraform/OpenTofu with Docker scenario.
-
-## What You Learned
-- Terraform/OpenTofu syntax and configuration
-- Provider setup and usage
-- Managing Docker resources as code
-- Essential commands and state manipulation
-- Best practices for Infrastructure as Code
-
-## Next Steps
-- Explore more advanced Terraform/OpenTofu features
-- Try other providers and real-world use cases
-- Visit the [kreuzwerker/docker provider documentation](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs)
-- Check out the [Terraform documentation](https://developer.hashicorp.com/terraform/docs) or [OpenTofu documentation](https://opentofu.org/docs/)
-
-Thank you for participating! 
+This introduction scenario covered the complete OpenTofu lifecycle management workflow, 
+from initial setup to resource destruction. You learned how to initialize OpenTofu projects, 
+create and validate configuration plans, deploy infrastructure resources, and make updates to 
+existing deployments. The hands-on experience with a Docker container web server demonstrated 
+the core OpenTofu commands: `init`, `plan`, `apply`, and `destroy`. By completing this scenario, 
+you now understand the fundamental concepts of Infrastructure as Code and can apply OpenTofu to 
+manage infrastructure resources effectively.
