@@ -10,7 +10,7 @@ my_module/
 └── outputs.tf
 ```
 - **main.tf**: Defines the actual resources (like servers, networks, databases) that the module manages.
-- **variables.tf**: represents the input parameters that allow you to customise the resource residing inside the module.
+- **variables.tf**: Represents the input parameters that allow you to customise the resource residing inside the module.
 - **outputs.tf**: Information from inside ressources that the module returns.
 
 ## Task
@@ -18,7 +18,7 @@ Create a reusable module for a nginx container that includes a Docker image and 
 1. Open the task-1 folder in the terminal
 ```
 cd ~/modules/task-1
-```{{exec}}
+```
 
 2. Start by creating the following folder structure:
 ```plaintext
@@ -29,8 +29,8 @@ modules/
       └── outputs.tf
 ```
 3. In the `modules/nginx_container/variables.tf`, the input parameters should be defined by creating `variables` for:
-   - **image_name** for the image name
-   - **container_name** for the container name
+   - **image_name** for the image we want to deploy (e.g., `nginx:latest`)
+   - **container_name** for name of the container (e.g., `my-nginx`)
 4. In `modules/nginx_container/main.tf`, define the following resources from the [Kreuzberg provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs):
    - **docker_image** resource for the nginx image using the `image_name` variable
    - **docker_container** resource that uses the image and the `container_name` variable. Ensure to expose port 80.

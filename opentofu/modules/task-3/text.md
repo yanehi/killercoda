@@ -7,25 +7,28 @@ Instead of creating your own modules, you can also obtain modules from central p
 
 ## Task
 In this task, we will create our web server using a module from the Terraform Module Registry. 
-The main.tf and provider.tf files, as well as the self-defined Docker module, were newly created for this task.
+The main.tf and provider.tf files, as well as the self-defined database module are available in `task-3`.
 
-1. In the `main.tf` you will find a TODO comment where to place the module configuration
-2. Navigate to the [Terraform Module Registry](https://registry.terraform.io/browse/modules) and search for `JamaicaBot/docker-nginx`
-3. First switch the version on the website to `4.0.0` (we will look into the latest versions later on)
-4. Follow the **Provision Instructions** to integrate the module into your code
-5. Check which variables need to be set for this module in the `Inputs` tab
-6. When finished, execute `tofu init` to download the module definition into the folder `.terraform/modules`
-7. Now execute `tofu fmt -recursive`, `tofu validate` and `tofu plan`
-   > **_NOTE:_** Is there anything noticeable in the plan compared to the previous task?
-8. Now let's increase the module version to `5.0.0`
-9. Updating a module requires a new initialization process, so therefore run `tofu init -upgrade`
-10. Now execute `tofu fmt -recursive`, `tofu validate` and `tofu plan`
+1. Open the task-3 folder in the terminal
+```
+cd ~/modules/task-3
+```
+2. In the `main.tf` you will find a **TODO** comment in which the external modul should be integrated.
+3. Open the [Terraform Module Registry](https://registry.terraform.io/browse/modules) and search for the module `JamaicaBot/docker-nginx`
+4. First switch the version on the website to `4.0.0` (we will look into the latest versions later on)
+5. Follow the **Provision Instructions** to integrate the module into your code
+6. Check which variables need to be set for this module in the `Inputs` tab
+7. When finished, execute `tofu init` to download the module definition into the folder `.terraform/modules`
+8. Now execute `tofu fmt -recursive`, `tofu validate` and `tofu plan`
+9. Now let's increase the module version to `5.0.0`
+10. Updating a module requires a new initialization process, so therefore run `tofu init -upgrade`
+11. Now execute `tofu fmt -recursive`, `tofu validate` and `tofu plan`
     > **_NOTE:_** You will encounter an error. What could the source of the error be?
 
 ### Bonus Task: Module version 6
-11. Now let's increase the module version to `6.0.0` and remove the `port` input from the module configuration in the ``main.tf` file
-12. Updating a module requires a new initialization process, so therefore run `tofu init -upgrade`
-13. Now execute `tofu fmt -recursive`, `tofu validate` and `tofu plan`
+12. Now let's increase the module version to `6.0.0` and remove the `port` input from the module configuration in the ``main.tf` file
+13. Updating a module requires a new initialization process, so therefore run `tofu init -upgrade`
+14. Now execute `tofu fmt -recursive`, `tofu validate` and `tofu plan`
     > **_NOTE:_** The error is gone, but did something else change? What is the difference between the two versions?
 
 

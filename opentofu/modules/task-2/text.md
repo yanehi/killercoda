@@ -36,10 +36,10 @@ to the `nginx` container.
 
 ## Task
 Create a multi-module infrastructure with a database container and an nginx container, where the database container ID is passed as an environment variable to the nginx container.
-1. Open the task-1 folder in the terminal
+1. Open the task-2 folder in the terminal
 ```
 cd ~/modules/task-2
-```{{exec}}
+```
 
 2. Start by creating the following folder structure:
 ```plaintext
@@ -71,6 +71,21 @@ task-2/
      - Environment variables for database configuration (MYSQL_ROOT_PASSWORD, MYSQL_DATABASE, MYSQL_USER and MYSQL_PASSWORD)
      - Port mapping using the `db_port` variable
      - Health check to ensure the database is ready (Interval: 10s, Timeout: 5s, Retries: 5, StartPeriod: 30s)
+     - Set the `restart` attribute of the `docker_container` so that the container is not shutdown
+     - Please add the following code snippet on the top of your `main.tf` file to use the correct Docker provider:
+   ```hcl
+   # This provider block is necessary in the module beceause the `kreuzwerker-docker` provider is not an official OpenTofu/Terraform provider.
+   # Hence on initialization, OpenTofu/Terraform will assume that the ressource should be downloaded by `hashicorp/docker` which does not exist.
+   # For this task we use this implementation as a workaround to be able to use the module. Best practice would be to leave out the provider 
+   # block in the module so that the provider on root level is used instead.
+    terraform {
+      required_providers {
+         docker = {
+            source  = "kreuzwerker/docker"
+         }
+      }
+    }
+   ```
 
 5. In `modules/database_container/outputs.tf`, define the necessary outputs that are used by the nginx module from the `main.tf`:
    
