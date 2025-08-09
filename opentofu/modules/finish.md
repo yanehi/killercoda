@@ -3,6 +3,14 @@
 You have completed the Modules scenario. 
 In this scenario you encountered two different approaches for creating and managing reusable infrastructure components with modules.
 
+**Key Benefits of Modules:**
+- **Reusability**: Define once, use everywhere
+- **Maintainability**: Update in one place, apply everywhere
+- **Consistency**: Ensure identical configurations across environments
+- **Abstraction**: Hide complexity behind simple interfaces
+- **Versioning**: Control when and how changes are applied
+
+
 ## Strengths & Limitations Summary
 
 ### Local Modules Approach

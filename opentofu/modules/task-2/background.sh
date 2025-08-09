@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Create the required directory structure
+mkdir -p ~/modules/task-2/modules/nginx_container
+
 # Create provider.tf file
 cat <<'EOF' > ~/modules/task-2/provider.tf
 terraform {
@@ -44,6 +47,7 @@ module "nginx_latest" {
   db_password     = module.database.db_password
 }
 EOF
+
 
 # Create index.html for the nginx container
 cat <<'EOF' > ~/modules/task-2/modules/nginx_container/index.html

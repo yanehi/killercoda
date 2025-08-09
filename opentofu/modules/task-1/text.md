@@ -10,8 +10,8 @@ my_module/
 └── outputs.tf
 ```
 - **main.tf**: Defines the actual resources (like servers, networks, databases) that the module manages.
-- **variables.tf**: Represents the input parameters that let you customize how the module works each time you use it.
-- **outputs.tf**: Information the module gives back after it runs, which you can use elsewhere in your configuration.
+- **variables.tf**: represents the input parameters that allow you to customise the resource residing inside the module.
+- **outputs.tf**: Information from inside ressources that the module returns.
 
 ## Task
 Create a reusable module for a nginx container that includes a Docker image and container resources. 
@@ -23,7 +23,7 @@ cd ~/modules/task-1
 2. Start by creating the following folder structure:
 ```plaintext
 modules/
-└──  ngnix_container/
+└──  nginx_container/
       ├── main.tf
       ├── variables.tf
       └── outputs.tf
@@ -83,11 +83,12 @@ docker ps
    </body>
    </html>
    ```
-> [!HINT]
-> On the container the html file should be placed in the `/usr/share/nginx/html` directory, which is the default location for serving static files in nginx.
 
 2. Modify your nginx_container module to upload this custom HTML file to the container. At the [kreuzwerker/docker provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container), find a way to ***upload*** files to the container.
 3. Apply the changes with `tofu apply` and verify that your custom page is displayed when accessing the nginx container.
+
+> [!HINT]
+> On the container the index.html file should be placed in the `/usr/share/nginx/html/` directory, which is the default location for serving static files in nginx.
 
 📝 **Fun Fact:** 
 We already encountered a module in the previous scenario. The folder in which we created the first Terraform/OpenTofu files is considered a module and termed the "root module".

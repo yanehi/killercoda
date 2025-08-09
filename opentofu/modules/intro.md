@@ -21,13 +21,6 @@ This creates a lot of redundant code in the green areas, which increases the siz
 OpenTofu modules solve this problem by implementing the DRY (Don't Repeat Yourself) principle. A module is a reusable, self-contained package of configurations that manages a specific set of resources.
 Think of modules as 'blueprints' for your infrastructure components. They define all the necessary parts of your desired infrastructure, but use variables to leave out the specific details.
 
-**Key Benefits of Modules:**
-- **Reusability**: Define once, use everywhere
-- **Maintainability**: Update in one place, apply everywhere
-- **Consistency**: Ensure identical configurations across environments
-- **Abstraction**: Hide complexity behind simple interfaces
-- **Versioning**: Control when and how changes are applied
-
 ### What You'll Learn
 
 In this scenario, you'll master the following concepts:

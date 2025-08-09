@@ -1,5 +1,3 @@
-# Task 2
-
 ## Foreword
 Building upon the module concept from Task 1, we now explore how modules can work together and share information through outputs and inputs. 
 This creates a powerful way to build complex infrastructure by connecting different components. Let's explore the configuration from the `main.tf`
@@ -29,12 +27,12 @@ module "nginx_latest" {
   db_password     = module.database.db_password
 }
 ```
+In this file you can see all the inputs and outputs from the two modules. While the inputs of each module are defined on the left side of the `=` sign, 
+the outputs of the modules are explicitly given by the references on the right side of the `=` sign. In this case, the `nginx` module uses outputs 
+from the `database` module to configure the nginx container with the database connection details, like the database container ID, host, port, and password.
 
-**Module Dependencies and Outputs:**
-When modules need to communicate with each other, they can use outputs from one module as inputs to another. This creates dependencies that ensure resources are created in the correct order and allows modules to share information like container IDs, IP addresses, or connection details.
-
-**Environment Variables in Containers:**
-Containers often need configuration information from other containers or external sources. By passing outputs from one module as environment variables to another, we can create dynamic, interconnected applications.
+Furthermore the reference between the module create an implicit dependency, whereas the `database` container needs to be created first to hand over the information details
+to the `nginx` container.
 
 ## Task
 Create a multi-module infrastructure with a database container and an nginx container, where the database container ID is passed as an environment variable to the nginx container.
