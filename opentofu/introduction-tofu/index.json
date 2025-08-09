@@ -38,7 +38,7 @@
       },
       {
         "title": "OpenTofu Lifecycle Destroy",
-        "text": "Task-6/destory.md",
+        "text": "Task-6/destroy.md",
         "verify": "Task-6/verify_destroy.sh"
       }
     ]
