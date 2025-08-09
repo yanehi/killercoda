@@ -1,13 +1,13 @@
-Um die folgenden Aufgaben beaarbeiten zu können, wird eine Installation von OpenTofu benötigt. 
-Der offiziele Weg um OpenTofu in dem gewünschten Betriebssystem zu installieren, kann aus der 
-offiziele [OpenTofu Installationsanleitung](https://opentofu.org/docs/intro/install/) entnommen werden.
+To complete the following tasks, an installation of OpenTofu is required. 
+The official way to install OpenTofu on your desired operating system can be found in the 
+official [OpenTofu Installation Guide](https://opentofu.org/docs/intro/install/).
 
-Die OpenTofu CLI beinhaltet die relevanten Befehle um aus den IaC-Skripten die gewünschte Soll-Infrastruktur zu provisionieren
-und mit dem OpenTofu State zu interagieren (eine Datei, die den aktuellen Zustand der Infrastruktur beschreibt). 
+The OpenTofu CLI contains the relevant commands to provision the desired target infrastructure from IaC scripts
+and interact with the OpenTofu State (a file that describes the current state of the infrastructure).
 
 ## Task
-Innerhalb der Killercoda Szenarien befinden wir uns in einer Ubuntu 22.04 Umgebung. 
-Um OpenTofu zu installieren können folgende Befehle genutzt werden:
+Within the Killercoda scenarios, we are working in an Ubuntu 22.04 environment. 
+To install OpenTofu, the following commands can be used:
 
 ```shell
 # Update packages
@@ -20,9 +20,8 @@ chmod +x install-opentofu.sh
 rm -f install-opentofu.sh
 ```{{exec}}
 
-Um zu überprüfen, ob OpenTofu korrekt installiert wurde, kann der folgende Befehl genutzt werden:
+To verify that OpenTofu was installed correctly, the following command can be used:
 
 ```shell
 tofu -version
 ```{{exec}}
-
