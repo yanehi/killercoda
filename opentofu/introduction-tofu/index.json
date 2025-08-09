@@ -13,33 +13,33 @@
     "steps": [
       {
         "title": "OpenTofu installation and setup",
-        "text": "task-1/installation.md",
-        "verify": "task-1/verify_installation.sh"
+        "text": "Task-1/installation.md",
+        "verify": "Task-1/verify_installation.sh"
       },
       {
         "title": "OpenTofu Lifecycle Initialization",
-        "text": "task-2/initialization.md",
-        "background": "task-2/background_initialization.sh",
-        "verify": "task-2/verify_initialization.sh"
+        "text": "Task-2/initialization.md",
+        "background": "Task-2/background_initialization.sh",
+        "verify": "Task-2/verify_initialization.sh"
       },
       {
         "title": "OpenTofu Lifecycle Planning",
-        "text": "task-3/planing.md",
-        "verify": "task-3/verify_planing.sh"
+        "text": "Task-3/planing.md",
+        "verify": "Task-3/verify_planing.sh"
       },
       {
         "title": "OpenTofu Lifecycle Apply",
-        "text": "task-4/apply.md",
-        "verify": "task-4/verify_apply.sh"
+        "text": "Task-4/apply.md",
+        "verify": "Task-4/verify_apply.sh"
       },
       {
         "title": "OpenTofu Lifecycle Adding Resources",
-        "text": "task-5/changes.md"
+        "text": "Task-5/changes.md"
       },
       {
         "title": "OpenTofu Lifecycle Destroy",
-        "text": "task-6/destory.md",
-        "verify": "task-6/verify_destroy.sh"
+        "text": "Task-6/destory.md",
+        "verify": "Task-6/verify_destroy.sh"
       }
     ]
   },
