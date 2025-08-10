@@ -29,7 +29,7 @@ In its complexity and the number of available resources, the `kreuzwerker/docker
 3. Before resources of the provider can be used, it must first be installed in the root directory of the project. For this, the following command must be executed in the directory where the `provider.tf` was created:
     ```shell
     tofu init
-    ```
+    ```{{exec}}
 4. After successful installation of the provider, a `.terraform` directory should have been created in the root directory of the project. This directory contains all downloaded providers needed for the project. Among other things, you can find:
 - The changelog files of the providers, which contain information about changes and new features.
 - The license files of the providers, which describe the terms of use and rights of the providers.
@@ -39,8 +39,8 @@ In its complexity and the number of available resources, the `kreuzwerker/docker
 The contents of these files are not relevant for now, as they are only needed for the installation and use of the provider. For this scenario, they don't play a role initially.
 
 > [!NOTE]  
-> Terraform/OpenTofu is often referred to as cloud agnostic. This statement refers to the fact that OpenTofu is able to 
-> interact with various cloud providers through the Terraform providers without being tied to a specific platform. However, using a 
+> Terraform/OpenTofu is often referred to as cloud-agnostic. This statement refers to the fact that OpenTofu is able to 
+> interact with various clouds through the Terraform providers without being tied to a specific platform. However, using a 
 > OpenTofu provider for a specific cloud determines which resources OpenTofu can manage and binds the infrastructure to that cloud.
 
 When you click the `Check` button after completing the exercise, the solution for `task-<number>` will be generated in the corresponding `~/configuration_blocks/syntax-and-configuration/solution-<number>` folder.

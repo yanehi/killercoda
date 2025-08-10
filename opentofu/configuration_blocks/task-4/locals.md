@@ -54,7 +54,7 @@ Make sure you have completed the previous tasks and have a working configuration
 
     **Local 1: PID Mode**
     - Local name: `pid_mode`
-    - Value: `"private"`
+    - Value: `"host"`
 
     **Local 2: Container File Path**
     - Local name: `container_file_path`
@@ -62,7 +62,7 @@ Make sure you have completed the previous tasks and have a working configuration
 
     **Local 3: Docker Registry Image**
     - Local name: `docker_registry_image`
-    - Value: `"docker.io/library/${var.image_name}"` (You can also use variables in your locals, instead of just static parameters)
+    - Value: `"docker.io/library/${var.image_version}"` (You can also use variables in your locals, instead of just static parameters)
     - This combines the registry prefix with the variable
 
     **Local 4: Internal Port**

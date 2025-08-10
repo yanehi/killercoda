@@ -46,7 +46,7 @@ In this task, you will learn how to use variables to make your OpenTofu configur
 **Goal**: Transform hardcoded values in your configuration into variables to make it more maintainable and flexible.
 
 ### Prerequisites
-Make sure you have completed the previous tasks and have the Docker provider configured in your `~/configuration_blocks/syntax-and-configuration` directory.
+Make sure you have completed the previous tasks and have the Docker provider and main.tf configured in your `~/configuration_blocks/syntax-and-configuration` directory.
 
 ### Steps
 
@@ -123,7 +123,7 @@ Make sure you have completed the previous tasks and have the Docker provider con
     You should see the updated content with "Task 0:" and the new message about variables.
 10. Lets overwrite the `task_number`and `web_server_message` variable and switch the external port to `8080`.
     ```shell
-    tofu plan -out=plan.tfplan -var="task_number=Task 3:" -var="external_port=8080" -var="web_server_message='Wow I really switched the text in here.Cool!'"
+    tofu plan -out=plan.tfplan -var="task_number=Task 3:" -var="external_port=8080" -var="web_server_message=Wow I really switched the text in here.Cool!"
     ```{{exec}}
 11. **Apply the new plan**:
     ```shell

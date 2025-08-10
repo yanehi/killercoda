@@ -7,17 +7,17 @@ To understand this, let's examine the documentation of the [kreuzwerker/docker P
 1. On the left side, under the `Resources` tab, a list of all resources provided by the provider is displayed. 
 2. Here it is indicated which documentation we are currently viewing with a brief description of the resource. In this case, it's the `docker_image` resource, which downloads a Docker image.
 3. In this field, a minimal example configuration for the resource is displayed, which can be directly adopted into your own OpenTofu configuration. A resource configuration always consists of:
-   - `resource` block, which is always specified in the form `resource "<PROVIDER>_<RESOURCE>" "<NAME>" {}`. The `"<PROVIDER>_<RESOURCE>"` identifies what type of resource is being configured (e.g., a Docker Image). The name `<NAME>` can be chosen freely.
+   - `resource` block, which is always specified in the form `resource "<PROVIDER>_<RESOURCE>" "<NAME>" {}`. The `<PROVIDER>_<RESOURCE>` identifies what type of resource is being configured (e.g., a Docker Image). The name `<NAME>` can be chosen freely.
    - `attributes`, which are defined within the block and represent the configuration of the resource. In this case, we can specify the name of the `docker_image` we want to download.
 
 > [!IMPORTANT]  
 > While the name `<NAME>` can be chosen freely, it must be unique. This means that within an OpenTofu configuration, no two resources with the same name may exist, as OpenTofu uses the combination of `<PROVIDER>_<RESOURCE>` and `<NAME>` as the resource identification.
 
 ## Working with Attributes
-Resource attributes can be divided into two categories:
+Resource attributes can be divided into three categories:
 - **Required Attributes**: These attributes must be specified for the resource to be successfully created. In the documentation, these attributes are marked with `Required`.
-- **Optional Attributes**: These attributes are optional and can be omitted. In the documentation, these attributes are marked with `Optional`. However, these attributes should always be checked before creation, as they often have default values that can lead to unwanted behavior. In `tofu plan`, these default values are displayed.
-- **Read-Only Attributes**: These are created only after Tofu has created the resource. They can be used in the configuration but cannot be changed. During provisioning (tofu apply), Tofu reads their values to reuse them. In the documentation, they are marked as Read-Only.
+- **Optional Attributes**: These attributes are optional and can be omitted. In the documentation, these attributes are marked with `Optional`. However, these attributes should always be checked before creation, as they often have default values that can lead to unwanted behavior. After a `tofu plan`, these default values are displayed.
+- **Read-Only Attributes**: These are created only after Tofu has created the resource. They can be used in the configuration but cannot be changed. During provisioning (`tofu apply`), Tofu reads their values to reuse them. In the documentation, they are marked as Read-Only.
 
 Additionally, attributes always have a type, which is specified in the documentation. The essential types are:
 - `string`: A simple text value.
@@ -56,7 +56,7 @@ Make sure you have completed task-1 and have the `provider.tf` file in your `~/c
      - Resource name: `web_server`
      - Container name: `"web-server"`
      - Image: Reference the image from your `docker_image` resource (use interpolation)
-     - PID mode: `"private"`
+     - PID mode: `"host"`
      - Port configuration:
        - Internal port: `80`
        - External port: `80`

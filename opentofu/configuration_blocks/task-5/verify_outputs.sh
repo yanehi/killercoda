@@ -72,6 +72,7 @@ variable "web_server_name" {
 variable "external_port" {
   description = "The external port to expose for the nginx container"
   type        = number
+  default     = 80
 }
 
 variable "task_number" {
