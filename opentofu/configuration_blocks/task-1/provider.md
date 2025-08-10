@@ -23,7 +23,7 @@ For this task, the `kreuzwerker/docker` provider must first be integrated into o
 In its complexity and the number of available resources, the `kreuzwerker/docker` provider is manageable and therefore well-suited for getting started with OpenTofu configuration.
 1. Navigate to the directory `~/configuration_blocks/syntax-and-configuration` and create a file named `provider.tf`. OpenTofu automatically recognizes this file as a provider configuration file. You can name it anything you like, but `provider.tf` is a common convention.
     ```shell
-    ~/configuration_blocks/syntax-and-configuration
+    cd ~/configuration_blocks/syntax-and-configuration
     ```{{exec}}
 2. Open the page of the [`kreuzwerker/docker` provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest), click on `USE PROVIDER` and copy only the `terraform` block into the `provider.tf` file. Note that this scenario works with version `3.6.2`.
 3. Before resources of the provider can be used, it must first be installed in the root directory of the project. For this, the following command must be executed in the directory where the `provider.tf` was created:
