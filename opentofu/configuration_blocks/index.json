@@ -17,7 +17,7 @@
         },
         {
           "title": "Task 2: Resources",
-          "text": "task-2/text_resources.md",
+          "text": "task-2/resources.md",
           "background": "task-2/background_resources.sh",
           "verify": "task-2/verify_resources.sh"
         },
