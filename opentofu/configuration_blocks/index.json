@@ -13,7 +13,6 @@
         {
           "title": "Task 1: Providers",
           "text": "task-1/provider.md",
-          "background": "task-1/background_provider.sh",
           "verify": "task-1/verify_provider.sh"
         },
         {
