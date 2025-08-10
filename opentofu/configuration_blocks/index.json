@@ -32,15 +32,8 @@
         },
         {
           "title": "Task 5: Outputs",
-          "text": "task-5/text_outputs.md",
-          "background": "task-5/background_outputs.sh",
+          "text": "task-5/outputs.md",
           "verify": "task-5/verify_outputs.sh"
-        },
-        {
-          "title": "Task 6: Data",
-          "text": "task-6/text_data.md",
-          "background": "task-6/background_data.sh",
-          "verify": "task-6/verify_data.sh"
         }
       ]
     },
