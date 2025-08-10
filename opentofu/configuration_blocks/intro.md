@@ -10,8 +10,6 @@ The following building blocks will be covered:
 - `variable`
 - `locals`
 - `output`
-The `data` block type will not be covered, as there is no appropriate data source available for this scenario within the used provider.
-If you are interested in using `data` blocks, information can be found on the [Data Source Documentation page](https://opentofu.org/docs/language/data-sources/).
 
 ## Prerequisites
 - Basic command-line knowledge in Ubuntu
