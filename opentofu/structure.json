@@ -5,10 +5,11 @@
     "difficulty": "Beginner",
     "time": "1 hour",
     "items": [
-      { "path": "introduction-tofu" , "title": "1. Introduction of the basic syntax and OpenTofu lifecycle." },
-      { "path": "resource-dependencies-lifecycle" , "title": "2. Ressource dependency and lifecycle in OpenTofu." },
-      { "path": "modules" , "title": "3. Modules in OpenTofu." },
-      { "path": "environments" , "title": "4. Multi-environment handling in OpenTofu." },
-      { "path": "troubleshooting" , "title": "5. Find and solve common issues in OpenTofu." }
+      { "path": "introduction-tofu" , "title": "1. Introduction of the OpenTofu infrastructure lifecycle." },
+      { "path": "configuration_blocks" , "title": "2. OpenTofu syntax and configuration blocks" },
+      { "path": "resource-dependencies-lifecycle" , "title": "3. Ressource dependency and lifecycle in OpenTofu." },
+      { "path": "modules" , "title": "4. Modules in OpenTofu." },
+      { "path": "environments" , "title": "5. Multi-environment handling in OpenTofu." },
+      { "path": "troubleshooting" , "title": "6. Find and solve common issues in OpenTofu." }
     ]
 }

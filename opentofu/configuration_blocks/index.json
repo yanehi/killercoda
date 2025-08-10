@@ -1,0 +1,57 @@
+{
+    "title": "Syntax and configuration blocks",
+    "description": "Learn how to use OpenTofu syntax and configuration blocks in your infrastructure as code projects.",
+    "details": {
+      "intro": {
+        "text": "intro.md",
+        "foreground": "startup.sh"
+      },
+      "finish": {
+        "text": "finish.md"
+      },
+      "steps": [
+        {
+          "title": "Task 1: Providers",
+          "text": "task-1/provider.md",
+          "background": "task-1/background_provider.sh",
+          "verify": "task-1/verify_provider.sh"
+        },
+        {
+          "title": "Task 2: Resources",
+          "text": "task-2/text_resources.md",
+          "background": "task-2/background_resources.sh",
+          "verify": "task-2/verify_resources.sh"
+        },
+        {
+          "title": "Task 3: Locals",
+          "text": "task-3/text_locals.md",
+          "background": "task-3/background_locals.sh",
+          "verify": "task-3/verify_locals.sh"
+        },
+        {
+          "title": "Task 4: Variables",
+          "text": "task-4/text_variables.md",
+          "background": "task-4/background_variables.sh",
+          "verify": "task-4/verify_variables.sh"
+        },
+        {
+          "title": "Task 5: Outputs",
+          "text": "task-5/text_outputs.md",
+          "background": "task-5/background_outputs.sh",
+          "verify": "task-5/verify_outputs.sh"
+        },
+        {
+          "title": "Task 6: Data",
+          "text": "task-6/text_data.md",
+          "background": "task-6/background_data.sh",
+          "verify": "task-6/verify_data.sh"
+        }
+      ]
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    },
+    "interface": {
+      "layout": "ide"
+    }
+  }

@@ -9,7 +9,7 @@ In this scenario, you will learn the fundamentals to:
  - Manage the lifecycle (such as creating, updating, or deleting) of infrastructure resources
 
 ## Prerequisites
-- Basic command-line knowledge
+- Basic command-line knowledge in Ubuntu
 - Familiarity with Docker concepts (containers, images)
 
 > [!IMPORTANT]  
@@ -18,6 +18,6 @@ In this scenario, you will learn the fundamentals to:
 
 ## Install Terraform Plugin for syntax highlighting
 
-![Everything fine](./assets/terraform_plugin.png)
+![Install Terraform Plugin](./assets/terraform_plugin.png)
 
 > **_CAUTION:_** Please wait until the environment is fully prepared before starting the exercise (`Start` button). You can monitor the preparation status in the terminal on the right side.

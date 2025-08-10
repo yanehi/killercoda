@@ -1,7 +1,6 @@
 #!/bin/bash
 
 mkdir ~/introduction-tofu/lifecycle-management
-mkdir ~/introduction-tofu/syntax-and-blockstypes
 
 # Install Docker
 if ! command -v docker &> /dev/null; then
