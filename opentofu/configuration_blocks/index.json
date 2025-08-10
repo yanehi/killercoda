@@ -18,20 +18,17 @@
         {
           "title": "Task 2: Resources",
           "text": "task-2/resources.md",
-          "background": "task-2/background_resources.sh",
           "verify": "task-2/verify_resources.sh"
         },
         {
-          "title": "Task 3: Locals",
-          "text": "task-3/text_locals.md",
-          "background": "task-3/background_locals.sh",
-          "verify": "task-3/verify_locals.sh"
+          "title": "Task 3: Variables",
+          "text": "task-3/variables.md",
+          "verify": "task-3/verify_variables.sh"
         },
         {
-          "title": "Task 4: Variables",
-          "text": "task-4/text_variables.md",
-          "background": "task-4/background_variables.sh",
-          "verify": "task-4/verify_variables.sh"
+          "title": "Task 4: Locals",
+          "text": "task-4/locals.md",
+          "verify": "task-4/verify_locals.sh"
         },
         {
           "title": "Task 5: Outputs",
