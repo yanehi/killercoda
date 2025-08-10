@@ -26,7 +26,7 @@ resource "docker_container" "web_server" {
   name  = "web-server"
   image = docker_image.nginx.name
 
-  pid_mode = "private"
+  pid_mode = "host"
 
   ports {
     internal = 80

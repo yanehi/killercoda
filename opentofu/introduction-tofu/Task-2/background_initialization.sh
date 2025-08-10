@@ -17,7 +17,7 @@ terraform {
 resource "docker_container" "web_server" {
   name  = "web-server"
   image = "docker.io/library/nginx:latest"
-  pid_mode = "private"
+  pid_mode = "host"
 
   ports {
     internal = 80

@@ -90,7 +90,7 @@ EOF
 # Create locals file
 cat > ~/configuration_blocks/syntax-and-configuration/solution-5/locals.tf << 'EOF'
 locals {
-  pid_mode              = "private"
+  pid_mode              = "host"
   container_file_path   = "/usr/share/nginx/html/index.html"
   docker_registry_image = "docker.io/library/${var.image_version}"
   internal_port         = 80

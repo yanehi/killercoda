@@ -59,7 +59,7 @@ resource "docker_container" "web_server" {
   name  = var.web_server_name
   image = docker_image.nginx.name
 
-  pid_mode = "private"
+  pid_mode = "host"
 
   ports {
     internal = 80
