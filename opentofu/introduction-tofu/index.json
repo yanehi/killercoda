@@ -1,5 +1,5 @@
 {
-  "title": "Introduction to the Terraform/OpenTofu Lifecycle",
+  "title": "Introduction to the Terraform/OpenTofu Workflow",
   "description": "Learn the lifecycle of infrastructure provisioning using Terraform/OpenTofu.",
   "difficulty": "beginner",
   "details": {
@@ -17,27 +17,27 @@
         "verify": "Task-1/verify_installation.sh"
       },
       {
-        "title": "OpenTofu Lifecycle Initialization",
+        "title": "OpenTofu Workflow Initialization",
         "text": "Task-2/initialization.md",
         "background": "Task-2/background_initialization.sh",
         "verify": "Task-2/verify_initialization.sh"
       },
       {
-        "title": "OpenTofu Lifecycle Planning",
+        "title": "OpenTofu Workflow Planning",
         "text": "Task-3/planing.md",
         "verify": "Task-3/verify_planing.sh"
       },
       {
-        "title": "OpenTofu Lifecycle Apply",
+        "title": "OpenTofu Workflow Apply",
         "text": "Task-4/apply.md",
         "verify": "Task-4/verify_apply.sh"
       },
       {
-        "title": "OpenTofu Lifecycle Adding Resources",
+        "title": "OpenTofu Workflow Adding Resources",
         "text": "Task-5/changes.md"
       },
       {
-        "title": "OpenTofu Lifecycle Destroy",
+        "title": "OpenTofu Workflow Destroy",
         "text": "Task-6/destroy.md",
         "verify": "Task-6/verify_destroy.sh"
       }

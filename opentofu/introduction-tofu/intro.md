@@ -1,6 +1,6 @@
 # Introduction to OpenTofu
 
-Welcome to the OpenTofu Lifecycle scenario! Throughout this introductory scenario, you will learn the first steps with the Infrastructure as Code (IaC) tool OpenTofu. 
+Welcome to the OpenTofu Workflow scenario! Throughout this introductory scenario, you will learn the first steps with the Infrastructure as Code (IaC) tool OpenTofu. 
 OpenTofu is a fork of Terraform that is being further developed by the OpenTofu community after HashiCorp changed Terraform's license from open-source to BUSL (Business Source License).
 
 In this scenario, you will learn the fundamentals to:
