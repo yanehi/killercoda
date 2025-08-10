@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir ~/configuration_blocks/syntax-and-configuration
+mkdir -p ~/configuration_blocks/syntax-and-configuration
 
 # Update packages
 apt-get update -y
