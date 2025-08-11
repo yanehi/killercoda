@@ -9,7 +9,7 @@
       { "path": "configuration_blocks" , "title": "2. OpenTofu syntax and configuration blocks" },
       { "path": "resource-dependencies-lifecycle" , "title": "3. Ressource dependency and lifecycle in OpenTofu." },
       { "path": "modules" , "title": "4. Modules in OpenTofu." },
-      { "path": "environments" , "title": "5. Multi-environment handling in OpenTofu." },
+      { "path": "environment-handling" , "title": "5. Multi-environment handling in OpenTofu." },
       { "path": "troubleshooting" , "title": "6. Find and solve common issues in OpenTofu." }
     ]
 }
