@@ -1,5 +1,5 @@
 {
-  "title": "Multi-Environment handling with OpenTofu",
+  "title": "5. Multi-environment handling in OpenTofu.",
   "description": "Learn two different design approaches for managing multiple environments (development, production) using OpenTofu variables and locals.",
   "details": {
     "intro": {
