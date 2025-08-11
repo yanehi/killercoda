@@ -1,9 +1,9 @@
 ## Foreword
-Environment handling with OpenTofu/Terraform is a powerful way to manage different configurations for various stages of your infrastructure lifecycle, such as development, testing or production. 
-In many cases you want to mirror the same infrastructure components across all environments, but slightly adjust configuration parameters or include values that are specifically for that environment. 
-Additionally you want to group your environment parameters on a central place to make it easier to manage them. 
+Environment handling with OpenTofu/Terraform is a powerful way to manage different configurations for various stages of your infrastructure lifecycle, such as development, testing or production.
+In many cases you want to mirror the same infrastructure components across all environments, but slightly adjust configuration parameters or include values that are specifically for that environment.
+Additionally you want to group your environment parameters on a central place to make it easier to manage them.
 
-![Environment Handling Overview](../assets/tofu-killercoda-training-enivornment-static_infrastructure_design.drawio.png)
+![Environment Handling Overview](../assets/tofu-killercoda-training-enivornment.png)
 One option to achieve this goal is to seperate the infrastructure definition from the input parameters. While the infrastructure definition is defined at root level the actual input values are moved to specific `*.tfvars`
 and referenced via variables. This ensures consistent infrastructure across all environments, reduces code duplication, and speeds up the provisioning of new environments.
 One disadvantage of this method is the complicated adjustment mechanisms required when infrastructure components differ across environments.
@@ -84,11 +84,11 @@ For this task, new requirements are defined for the infrastructure configuration
 - On the dev environment, you want to add a debug container for Redis `redis:alpine` to help with caching and session management
 - In the production environment, you want to add a redundant database backup service that runs periodically to ensure data safety
 
-Your challenge is to implement these conditional resources using the variable-based approach you've learned in the previous steps. 
+Your challenge is to implement these conditional resources using the variable-based approach you've learned in the previous steps.
 Please use the [Kreuzwerk Provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs) to see what configuration options and ressources you can use.
 
 > [!TIP]
-> Think about how you can use the `count` or `for_each` meta-arguments to conditionally create resources based on the environment. 
+> Think about how you can use the `count` or `for_each` meta-arguments to conditionally create resources based on the environment.
 > What could be a good indicator to determine whether a resource should be created in the dev or prod environment?
 
 Deploy and verify both environments:
@@ -97,7 +97,7 @@ Deploy and verify both environments:
 tofu plan -var-file=env/dev.tfvars -state="dev-state"
 tofu apply -var-file=env/dev.tfvars -state="dev-state"
 
-# Test prod environment  
+# Test prod environment
 tofu plan -var-file=env/prod.tfvars -state="prod-state"
 tofu apply -var-file=env/prod.tfvars -state="prod-state"
 
