@@ -18,8 +18,8 @@ This creates a lot of redundant code in the green areas, which increases the siz
 
 ### The Solution: Modules
 
-OpenTofu modules solve this problem by implementing the DRY (Don't Repeat Yourself) principle. A module is a reusable, self-contained package of configurations that manages a specific set of resources.
-Think of modules as 'blueprints' for your infrastructure components. They define all the necessary parts of your desired infrastructure, but use variables to leave out the specific details.
+[OpenTofu modules](https://opentofu.org/docs/language/modules/) solve this problem by implementing the DRY (Don't Repeat Yourself) principle. A module is a reusable, self-contained package of configurations that manages a specific set of resources.
+Think of modules as 'blueprints' for your infrastructure components. They define all the necessary parts of your desired infrastructure, but use variables to leave out the configuration details (**red areas**).
 
 ### What You'll Learn
 

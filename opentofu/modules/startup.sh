@@ -1,12 +1,6 @@
 #!/bin/bash
 
-# Create folder with exercises
-mkdir ~/modules
-for i in {1..3}; do
-  echo "Create folder task-$i and solution-$i"
-  mkdir ~/modules/task-$i
-  mkdir ~/modules/solution-$i
-done
+mkdir -p ~/modules/project
 
 # Update packages
 apt-get update -y
@@ -49,5 +43,4 @@ systemctl enable docker
 
 # Verify installations
 tofu version
-terraform version
 docker --version
