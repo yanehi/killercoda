@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Create solution-1 directory structure
-mkdir -p ~/environments/task-1/solution-1/env
+mkdir -p ~/environment-handling/task-1/solution-1/env
 
 # Create provider.tf file
-cat <<'EOF' > ~/environments/task-1/solution-1/provider.tf
+cat <<'EOF' > ~/environment-handling/task-1/solution-1/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -20,7 +20,7 @@ provider "docker" {
 EOF
 
 # Create variables.tf file
-cat <<'EOF' > ~/environments/task-1/solution-1/variables.tf
+cat <<'EOF' > ~/environment-handling/task-1/solution-1/variables.tf
 # Environment variable
 variable "environment" {
   description = "Environment name (dev, prod, staging, etc.)"
@@ -101,7 +101,7 @@ variable "network_subnet" {
 EOF
 
 # Create main.tf file
-cat <<'EOF' > ~/environments/task-1/solution-1/main.tf
+cat <<'EOF' > ~/environment-handling/task-1/solution-1/main.tf
 # Create a custom Docker network for the application
 resource "docker_network" "app_network" {
   name   = var.network_name
@@ -252,7 +252,7 @@ resource "docker_container" "backup_container" {
 EOF
 
 # Create index.html.tpl template
-cat <<'EOF' > ~/environments/task-1/solution-1/index.html.tpl
+cat <<'EOF' > ~/environment-handling/task-1/solution-1/index.html.tpl
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -367,7 +367,7 @@ cat <<'EOF' > ~/environments/task-1/solution-1/index.html.tpl
 EOF
 
 # Create dev.tfvars file
-cat <<'EOF' > ~/environments/task-1/solution-1/env/dev.tfvars
+cat <<'EOF' > ~/environment-handling/task-1/solution-1/env/dev.tfvars
 # Environment configuration
 environment = "dev"
 app_url     = "http://localhost:8080"
@@ -394,7 +394,7 @@ enable_backup_container = false
 EOF
 
 # Create prod.tfvars file
-cat <<'EOF' > ~/environments/task-1/solution-1/env/prod.tfvars
+cat <<'EOF' > ~/environment-handling/task-1/solution-1/env/prod.tfvars
 # Environment configuration
 environment = "prod"
 app_url     = "http://localhost:80"

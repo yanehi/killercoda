@@ -1,9 +1,9 @@
 #!/bin/bash
 
-mkdir -p ~/environments/task-2/dev
+mkdir -p ~/environment-handling/task-2/dev
 
 # Create provider.tf file
-cat <<'EOF' > ~/environments/task-2/dev/provider.tf
+cat <<'EOF' > ~/environment-handling/task-2/dev/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -19,7 +19,7 @@ provider "docker" {
 EOF
 
 # Create main.tf file
-cat <<'EOF' > ~/environments/task-2/dev/main.tf
+cat <<'EOF' > ~/environment-handling/task-2/dev/main.tf
 # Create a custom Docker network for the application
 resource "docker_network" "app_network" {
   name   = "webapp-network-dev" # TODO: Replace with locals
@@ -120,7 +120,7 @@ resource "docker_container" "nginx_container" {
 EOF
 
 # Create index.html.tpl template
-cat <<'EOF' > ~/environments/task-2/dev/index.html.tpl
+cat <<'EOF' > ~/environment-handling/task-2/dev/index.html.tpl
 <!DOCTYPE html>
 <html lang="en">
 <head>

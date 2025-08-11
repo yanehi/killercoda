@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Create folder with exercises
-mkdir ~/environments
+mkdir ~/environment-handling
 for i in {1..2}; do
   echo "Create folder task-$i and solution-$i"
-  mkdir ~/environments/task-$i
-  mkdir ~/environments/solution-$i
+  mkdir ~/environment-handling/task-$i
+  mkdir ~/environment-handling/solution-$i
 done
 
 # Update packages

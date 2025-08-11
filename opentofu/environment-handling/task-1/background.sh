@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create provider.tf file
-cat <<'EOF' > ~/environments/task-1/provider.tf
+cat <<'EOF' > ~/environment-handling/task-1/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -17,7 +17,7 @@ provider "docker" {
 EOF
 
 # Create main.tf file
-cat <<'EOF' > ~/environments/task-1/main.tf
+cat <<'EOF' > ~/environment-handling/task-1/main.tf
 # Create a custom Docker network for the application
 resource "docker_network" "app_network" {
   name   = "webapp-network-dev" # TODO: Replace with variable
@@ -137,7 +137,7 @@ resource "docker_container" "nginx_container" {
 EOF
 
 # Create index.html.tpl file
-cat <<'EOF' > ~/environments/task-1/index.html.tpl
+cat <<'EOF' > ~/environment-handling/task-1/index.html.tpl
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -328,7 +328,7 @@ cat <<'EOF' > ~/environments/task-1/index.html.tpl
 
             <p><strong>🔧 Environment:</strong> Currently running in <strong>${upper(environment)}</strong> mode
             at <a href="${app_url}" class="highlight">${app_url}</a>.
-            Switch environments by using different .tfvars files.</p>
+            Switch environment-handling by using different .tfvars files.</p>
         </div>
     </div>
 </body>

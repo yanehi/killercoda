@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Create solution-2 directory structure
-mkdir -p ~/environments/task-2/solution-2/dev
-mkdir -p ~/environments/task-2/solution-2/prod
+mkdir -p ~/environment-handling/task-2/solution-2/dev
+mkdir -p ~/environment-handling/task-2/solution-2/prod
 
 echo "Creating Task-2 solution structure..."
 
 # Create dev environment files
-cat <<'EOF' > ~/environments/task-2/solution-2/dev/provider.tf
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/dev/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -22,7 +22,7 @@ provider "docker" {
 }
 EOF
 
-cat <<'EOF' > ~/environments/task-2/solution-2/dev/locals.tf
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/dev/locals.tf
 locals {
   # Network configuration
   network_name   = "webapp-network-dev"
@@ -51,7 +51,7 @@ locals {
 }
 EOF
 
-cat <<'EOF' > ~/environments/task-2/solution-2/dev/main.tf
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/dev/main.tf
 # Create a custom Docker network for the application
 resource "docker_network" "app_network" {
   name   = local.network_name
@@ -171,7 +171,7 @@ resource "docker_container" "debug_container" {
 }
 EOF
 
-cat <<'EOF' > ~/environments/task-2/solution-2/dev/index.html.tpl
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/dev/index.html.tpl
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -285,7 +285,7 @@ cat <<'EOF' > ~/environments/task-2/solution-2/dev/index.html.tpl
 </html>
 EOF
 
-cat <<'EOF' > ~/environments/task-2/solution-2/prod/locals.tf
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/prod/locals.tf
 locals {
   # Network configuration
   network_name   = "webapp-network-prod"
@@ -315,7 +315,7 @@ locals {
 EOF
 
 
-cat <<'EOF' > ~/environments/task-2/solution-2/prod/main.tf
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/prod/main.tf
 # Create a custom Docker network for the application
 resource "docker_network" "app_network" {
   name   = local.network_name
@@ -452,7 +452,7 @@ resource "docker_container" "backup_container" {
 }
 EOF
 
-cat <<'EOF' > ~/environments/task-2/solution-2/prod/index.html.tpl
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/prod/index.html.tpl
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -567,7 +567,7 @@ cat <<'EOF' > ~/environments/task-2/solution-2/prod/index.html.tpl
 EOF
 
 # Create dev environment files
-cat <<'EOF' > ~/environments/task-2/solution-2/prod/provider.tf
+cat <<'EOF' > ~/environment-handling/task-2/solution-2/prod/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -582,4 +582,4 @@ provider "docker" {
 }
 EOF
 
-echo "Task-2 solution successfully created in ~/environments/task-2/solution-2/"
+echo "Task-2 solution successfully created in ~/environment-handling/task-2/solution-2/"
