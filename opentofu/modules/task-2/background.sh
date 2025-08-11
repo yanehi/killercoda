@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Create the required directory structure
-mkdir -p ~/modules/task-2/modules/nginx_container
+mkdir -p ~/modules/project/modules/database_container
 
-# Create provider.tf file
-cat <<'EOF' > ~/modules/task-2/provider.tf
+# Create provider.tf file in database_container module
+cat <<'EOF' >~/modules/project/modules/database_container/provider.tf
 terraform {
   required_providers {
     docker = {
@@ -20,10 +20,115 @@ provider "docker" {
 EOF
 
 # Create a main.tf
-cat <<'EOF' > ~/modules/task-2/main.tf
-# Root module configuration for Task 2
-# This uses both nginx and database modules with container ID dependency
+cat <<'EOF' >  ~/modules/project/modules/database_container/main.tf
+# Database container module - main.tf
+# Defines MySQL container with environment configuration
 
+resource "docker_image" "database_image" {
+  name = var.image_name
+}
+
+resource "docker_container" "database_container" {
+  name  = var.container_name
+  image = docker_image.database_image.image_id
+
+  restart = "unless-stopped"
+
+  # Database environment variables
+  env = [
+    "MYSQL_ROOT_PASSWORD=${var.db_password}",
+    "MYSQL_DATABASE=${var.db_name}",
+    "MYSQL_USER=${var.db_user}",
+    "MYSQL_PASSWORD=${var.db_password}"
+  ]
+
+  # Expose database port
+  ports {
+    internal = var.db_port
+    external = var.db_port
+  }
+
+  # Health check to ensure database is ready
+  healthcheck {
+    test         = ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    interval     = "10s"
+    timeout      = "5s"
+    retries      = 5
+    start_period = "30s"
+  }
+}
+EOF
+
+
+# Create index.html.tpl for the nginx container
+cat <<'EOF' >  ~/modules/project/modules/database_container/variables.tf
+variable "image_name" {
+  description = "Docker image name for database"
+  type        = string
+  default     = "mysql:8.0"
+}
+
+variable "container_name" {
+  description = "Name of the database container"
+  type        = string
+  default     = "database-container"
+}
+
+variable "db_name" {
+  description = "Database name"
+  type        = string
+  default     = "myapp"
+}
+
+variable "db_user" {
+  description = "Database user"
+  type        = string
+  default     = "root"
+}
+
+variable "db_password" {
+  description = "Database password"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_port" {
+  description = "Database port"
+  type        = number
+  default     = 3306
+}
+
+EOF
+
+# Create variables.tf for the module
+cat <<'EOF' >  ~/modules/project/modules/database_container/outputs.tf
+# Database container module - outputs.tf
+# Output values from the database container module
+
+output "container_id" {
+  description = "ID of the database container"
+  value       = docker_container.database_container.id
+}
+
+output "db_host" {
+  description = "Name of the database container"
+  value       = docker_container.database_container.name
+}
+
+output "db_port" {
+  description = "Port exposed by the database container"
+  value       = var.db_port
+}
+
+output "db_password" {
+  description = "Password exposed by the database container"
+  value       = var.db_password
+  sensitive   = true
+}
+EOF
+
+# Create main.tf for the module
+cat <<'EOF' >  ~/modules/project/database.tf
 module "database" {
   source         = "./modules/database_container"
   image_name     = "mysql:8.0"
@@ -32,78 +137,6 @@ module "database" {
   db_user        = "root"
   db_password    = "password123"
   db_port        = 3306
-}
-
-module "nginx_latest" {
-  source         = "./modules/nginx_container"
-  image_name     = "nginx:latest"
-  container_name = "my-nginx"
-  port           = 80
-
-  # Pass database container ID, host, and port as variables
-  db_container_id = module.database.container_id
-  db_host         = module.database.container_name
-  db_port         = module.database.db_port
-  db_password     = module.database.db_password
-}
-EOF
-
-
-# Create index.html for the nginx container
-cat <<'EOF' > ~/modules/task-2/modules/nginx_container/index.html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Custom Nginx Module</title>
-</head>
-<body>
-    <h1>Congratulations! You have successfully created your first Tofu module!</h1>
-    <p>This custom page is served by your nginx container module.</p>
-</body>
-</html>
-EOF
-
-# Create variables.tf for the module
-cat <<'EOF' > ~/modules/task-2/modules/nginx_container/variables.tf
-variable "image_name" {
-  description = "Name of the Docker image"
-  type        = string
-}
-
-variable "container_name" {
-  description = "Name of the Docker container"
-  type        = string
-}
-EOF
-
-# Create main.tf for the module
-cat <<'EOF' > ~/modules/task-2/modules/nginx_container/main.tf
-terraform {
-  required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
-    }
-  }
-}
-
-resource "docker_image" "nginx_image" {
-  name = var.image_name
-}
-
-resource "docker_container" "nginx_container" {
-  name  = var.container_name
-  image = docker_image.nginx_image.image_id
-
-  ports {
-    internal = 80
-    external = 80
-  }
-
-  # Referenzierung der index.html aus dem aktuellen Modul-Verzeichnis
-  upload {
-    content = file("${path.module}/index.html") # Pfad zum aktuellen Modul-Verzeichnis
-    file    = "/usr/share/nginx/html/index.html"
-  }
 }
 EOF
 

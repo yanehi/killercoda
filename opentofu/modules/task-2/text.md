@@ -1,121 +1,108 @@
-## Foreword
-Building upon the module concept from Task 1, we now explore how modules can work together and share information through outputs and inputs. 
-This creates a powerful way to build complex infrastructure by connecting different components. Let's explore the configuration from the `main.tf`
-```hcl
-# This uses both nginx and database modules with container ID dependency
+# Task 2: Module Integration and Data Flow
 
-module "database" {
-  source         = "./modules/database_container"
-  image_name     = "mysql:8.0"
-  container_name = "my-mysql"
-  db_name        = "myapp"
-  db_user        = "root"
-  db_password    = "password123"
-  db_port        = 3306
-}
+## Overview
+In this task, you will learn how to connect multiple OpenTofu modules and pass data between them using outputs and inputs. You'll integrate a database module with your existing nginx module, demonstrating how modules can work together to create complex infrastructure.
 
-module "nginx_latest" {
-  source         = "./modules/nginx_container"
-  image_name     = "nginx:latest"
-  container_name = "my-nginx"
-  port           = 80
+## Prerequisites
+- Completed Task 1 (nginx_container module)
+- Understanding of OpenTofu modules, variables, and outputs
+- Basic knowledge of database concepts
 
-  # Pass database container ID, host, and port as variables
-  db_container_id = module.database.container_id
-  db_host         = module.database.container_name
-  db_port         = module.database.db_port
-  db_password     = module.database.db_password
-}
-```
-In this file you can see all the inputs and outputs from the two modules. While the inputs of each module are defined on the left side of the `=` sign, 
-the outputs of the modules are explicitly given by the references on the right side of the `=` sign. In this case, the `nginx` module uses outputs 
-from the `database` module to configure the nginx container with the database connection details, like the database container ID, host, port, and password.
+## Task Description
 
-Furthermore the reference between the module create an implicit dependency, whereas the `database` container needs to be created first to hand over the information details
-to the `nginx` container.
+You will extend your infrastructure by adding a database module and connecting it to your nginx module. The database module will provide connection information (host, port, password) that will be passed to the nginx containers as environment variables.
 
-## Task
-Create a multi-module infrastructure with a database container and an nginx container, where the database container ID is passed as an environment variable to the nginx container.
-1. Open the task-2 folder in the terminal
-```
-cd ~/modules/task-2
-```
+Currently, your nginx containers show empty values for DATABASE_HOST, DATABASE_PORT, and DATABASE_PASSWORD. Your goal is to fill these values using outputs from a database module.
 
-2. Start by creating the following folder structure:
-```plaintext
-task-2/
-├── modules/
-│   ├── nginx_container/
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   └── outputs.tf
-│   └── database_container/
-│       ├── main.tf
-│       ├── variables.tf
-│       └── outputs.tf
-├── provider.tf
-└── main.tf  
-```
+## Initial Setup
 
-3. In the `modules/database_container/variables.tf`, define all the input parameters that are used by the database module from the `main.tf`
-   - **image_name** for the database image name
-   - **container_name** for the database container name
-   - **db_name** for the database name
-   - **db_user** for the database user
-   - **db_password** for the database password (mark as sensitive)
-   - **db_port** for the database port (default: 3306)
+You will find the following resources already prepared for you:
 
-4. In `modules/database_container/main.tf`, define the following resources from the [Kreuzwerk Provider](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs):
-   - **docker_image** resource for the MySQL image using the `image_name` variable
-   - **docker_container** resource for the MySQL container with:
-     - Environment variables for database configuration (MYSQL_ROOT_PASSWORD, MYSQL_DATABASE, MYSQL_USER and MYSQL_PASSWORD)
-     - Port mapping using the `db_port` variable
-     - Health check to ensure the database is ready (Interval: 10s, Timeout: 5s, Retries: 5, StartPeriod: 30s)
-     - Set the `restart` attribute of the `docker_container` so that the container is not shutdown
-     - Please add the following code snippet on the top of your `main.tf` file to use the correct Docker provider:
-   ```hcl
-   # This provider block is necessary in the module beceause the `kreuzwerker-docker` provider is not an official OpenTofu/Terraform provider.
-   # Hence on initialization, OpenTofu/Terraform will assume that the ressource should be downloaded by `hashicorp/docker` which does not exist.
-   # For this task we use this implementation as a workaround to be able to use the module. Best practice would be to leave out the provider 
-   # block in the module so that the provider on root level is used instead.
-    terraform {
-      required_providers {
-         docker = {
-            source  = "kreuzwerker/docker"
-         }
-      }
-    }
-   ```
+1. **Database Module**: Located in `modules/database_container/` with:
+   - `main.tf` - MySQL container resource
+   - `variables.tf` - Input variables for database configuration
+   - `outputs.tf` - Exports database connection information
 
-5. In `modules/database_container/outputs.tf`, define the necessary outputs that are used by the nginx module from the `main.tf`:
-   
-6. In the `modules/nginx_container/variables.tf`, define all the input parameters that are used by the nginx module from the `main.tf`. Additionally, mark the `db_password` variable as sensitive
+2. **Database Configuration**: A `database.tf` file in the root directory that initializes the database module
 
-7. In `modules/nginx_container/main.tf`, expand the `docker_container` resource to use the database connection values as environment variables.
+Your task is to connect these components and pass the database information to your nginx containers.
 
-8. To verify the correctness of your implementation run
-- `tofu init`
-- `tofu fmt -recursive`
-- `tofu validate`
-- `tofu apply` to provision both containers with the dependency relationship.
-9. You can check the status of the container with the command:
-```bash
-docker ps
-```
-10. You can access the nginx container within Killercoda on the port you defined for the nginx container (default: 80):
-    ![Everything fine](./../assets/access_ports_killercoda.png)
-11. Clean up after reviewing with `tofu destroy`
+### Step 1: Extend Nginx Module Variables
 
-### Bonus Task: Hand over environment variables as a list to the nginx container
- 1. Use the [Kreuzwerk resource definition](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container#env-4) for the `env` parameter to hand over the environment variables as a list to the module. 
- 2. Use [Dynamic Blocks](https://opentofu.org/docs/language/expressions/dynamic-blocks/) to insert all environment variables from the list to the database container in the database module.
+Navigate to your nginx module directory and extend the `~/modules/nginx_container/variables.tf` file:
 
-## Afterword
-By creating multiple modules that can communicate through outputs and inputs, you can build complex, interconnected infrastructure. 
-The database container ID is automatically passed to the nginx container as an environment variable, demonstrating how modules can share information and create dependencies.
+Add the following new input variables to handle database connection information:
 
-📝 **Key Concepts:** 
-- **Module Dependencies**: The nginx module depends on the database module, ensuring the database is created first
-- **Output/Input Flow**: Database container ID flows from database module → root module → nginx module
-- **Environment Variables**: Dynamic configuration passed to containers at runtime
-- **Sensitive Data**: Database passwords are marked as sensitive for security
+- `db_host` (string) - Database host for nginx container
+- `db_port` (number) - Database port for nginx container  
+- `db_password` (string, sensitive) - Database password for nginx container
+
+
+### Step 2: Update Nginx Module Main Configuration
+
+In your nginx modules `main.tf`, update the environment variables section to use the new input variables:
+
+Replace the TODO comments for database-related environment variables:
+- `DATABASE_HOST=` → Use `var.db_host`
+- `DATABASE_PORT=` → Use `var.db_port`
+- `DATABASE_PASSWORD=` → Use `var.db_password`
+
+Also update the templatefile parameters to pass the database values to the HTML template:
+- Set `db_host` parameter to `var.db_host`
+- Set `db_port` parameter to `var.db_port`
+
+### Step 3: Update Root Module Configuration
+
+Navigate back to your root directory and examine the `~/modules/nginx_container/database.tf` file:
+
+In your root `main.tf`, update both module calls (production and development nginx containers) to include the new database input variables:
+
+For each module call, add the database parameters using the database module outputs:
+- `db_host = module.database.container_name`
+- `db_port = module.database.db_port`
+- `db_password = module.database.db_password`
+
+> **Important**: The database container name serves as the hostname within the Docker network.
+
+### Step 4: Initialize and Apply Configuration
+
+Initialize the configuration to recognize the new database module:
+   ```shell
+   tofu init
+   ```{{exec}}
+
+Format your configuration files:
+   ```shell
+   tofu fmt
+   ```{{exec}}
+
+Validate the configuration:
+   ```shell
+   tofu validate
+   ```{{exec}}
+
+Create an execution plan to see what will be created:
+  ```shell  
+  tofu plan -out=plan.tfplan
+   ```{{exec}}
+
+Review the plan output. You should see:
+- A new MySQL database container will be created
+- Your existing nginx containers will be updated with database environment variables
+
+Apply the configuration:
+   ```shell
+   tofu apply plan.tfplan
+   ```{{exec}}
+
+### Step 5: Verify Integration
+
+Test that your containerized web servers are accessible. Development should be on port 8080 and production on port 80.
+![Access web server in Killercoda](./../assets/access_ports_killercoda.png)
+
+Both pages should now show:
+- DATABASE_HOST: The database container name
+- DATABASE_PORT: 3306 (MySQL default port)
+- DATABASE_PASSWORD: The actual database password (masked for security)
+
+When you click the `Check` button after completing the exercise, the solution for `task-2` will be generated in the corresponding `~/modules/project/solution-2` folder.

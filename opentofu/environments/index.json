@@ -1,7 +1,6 @@
 {
   "title": "Multi-Environment handling with OpenTofu",
   "description": "Learn two different design approaches for managing multiple environments (development, production) using OpenTofu variables and locals.",
-  "difficulty": "intermediate",
   "details": {
     "intro": {
       "text": "intro.md",
@@ -18,7 +17,7 @@
         "verify": "task-1/verify.sh"
       },
       {
-        "title": "Task 1: Environment handling - Distributed Approach",
+        "title": "Task 2: Environment handling - Distributed Approach",
         "text": "task-2/text.md",
         "background": "task-2/background.sh",
         "verify": "task-2/verify.sh"
