@@ -22,12 +22,6 @@
         "text": "task-2/text.md",
         "background": "task-2/background.sh",
         "verify": "task-2/verify.sh"
-      },
-      {
-        "title": "Task 3: Using Module Registry and versioning",
-        "text": "task-3/text.md",
-        "background": "task-3/background.sh",
-        "verify": "task-3/verify.sh"
       }
     ]
   },
