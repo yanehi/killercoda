@@ -43,7 +43,7 @@ resource "docker_container" "web_server_production" {
 
   # Custom HTML page with application information
   upload {
-    content = templatefile("${path.root}/index.html.tpl", {
+    content = templatefile("${path.module}/index.html.tpl", {
       db_host       = ""
       db_name       = ""
       db_port       = ""
